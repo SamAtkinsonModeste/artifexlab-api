@@ -1,4 +1,4 @@
-# artifexlab-api# ArtifexLab API 🧠
+# ArtifexLab API 🧠
 
 The brains behind the art.
 
