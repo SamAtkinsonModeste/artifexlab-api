@@ -1,7 +1,7 @@
 ---
 name: User Story Issue Template
 about: Create a new user story-based issue for ArtifexLab (Backend)
-title: User Story: [ Log in ]
+title: 'User Story: [Short title here – what the user wants to do]'
 labels: ''
 assignees: SamAtkinsonModeste
 
