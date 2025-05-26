@@ -10,7 +10,7 @@ class ArtworkSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
     #TODO -  liked_id = serializers.SerializerMethodField()
     #TODO -  likes_count = serializers.ReadOnlyField()
-    #TODO -  comments_count = serializers.ReadOnlyField()
+    comments_count = serializers.ReadOnlyField()
 
     def validate_image(self, value):
         """
@@ -53,6 +53,6 @@ class ArtworkSerializer(serializers.ModelSerializer):
             "image",
             "image_filter_choices",
             #TODO -  "liked_id",
-            #TODO -  "comments_count",
+             "comments_count",
             #TODO -  "likes_count",
         ]
