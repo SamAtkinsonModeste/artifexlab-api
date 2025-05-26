@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Artwork
-#TODO -  from likes.models import Like
+from likes.models import Like
 
 
 class ArtworkSerializer(serializers.ModelSerializer):
@@ -8,8 +8,8 @@ class ArtworkSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
     profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
-    #TODO -  liked_id = serializers.SerializerMethodField()
-    #TODO -  likes_count = serializers.ReadOnlyField()
+    liked_id = serializers.SerializerMethodField()
+    likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
 
     def validate_image(self, value):
@@ -31,12 +31,12 @@ class ArtworkSerializer(serializers.ModelSerializer):
         request = self.context["request"]
         return request.user == obj.owner
 
-    #TODO -  def get_liked_id(self, obj):
-    #     user = self.context["request"].user
-    #     if user.is_authenticated:
-    #         liked = Like.objects.filter(owner=user, artwork=obj).first()
-    #         return liked.id if liked else None
-    #     return None
+    def get_liked_id(self, obj):
+        user = self.context["request"].user
+        if user.is_authenticated:
+            liked = Like.objects.filter(owner=user, artwork=obj).first()
+            return liked.id if liked else None
+        return None
 
     class Meta:
         model = Artwork
@@ -52,7 +52,7 @@ class ArtworkSerializer(serializers.ModelSerializer):
             "description",
             "image",
             "image_filter_choices",
-            #TODO -  "liked_id",
+              "liked_id",
              "comments_count",
-            #TODO -  "likes_count",
+            "likes_count",
         ]
