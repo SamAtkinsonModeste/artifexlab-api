@@ -31,6 +31,6 @@ urlpatterns = [
     path("", include("profiles.urls")),
     path("", include("artworks.urls")),
     path("", include("comments.urls")),
-    #TODO -  path("", include("likes.urls")),
+    path("", include("likes.urls")),
     path("", include("followers.urls")),
 ]

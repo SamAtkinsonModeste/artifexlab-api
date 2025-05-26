@@ -15,7 +15,7 @@ class ArtworkList(generics.ListCreateAPIView):
     serializer_class = ArtworkSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Artwork.objects.annotate(
-        #TODO -  likes_count=Count("likes", distinct=True),
+        likes_count=Count("likes", distinct=True),
         comments_count=Count("comments", distinct=True),
     ).order_by("-created_at")
     filter_backends = [
@@ -37,8 +37,8 @@ class ArtworkList(generics.ListCreateAPIView):
 
     ordering_fields = [
          "comments_count",
-        # "likes_count",
-        # "likes__created_at",
+        "likes_count",
+        "likes__created_at",
     ]
 
     def perform_create(self, serializer):
