@@ -401,3 +401,5 @@ FodyWeavers.xsd
 *.sln.iml
 # My projects Ignore
 .vscode/settings.json
+.venv/
+env.py
