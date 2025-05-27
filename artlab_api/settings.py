@@ -100,6 +100,7 @@ INSTALLED_APPS = [
     "comments",
     "followers",
     "likes",
+    "tutorials",
 
 ]
 
