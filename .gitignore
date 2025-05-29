@@ -403,3 +403,4 @@ FodyWeavers.xsd
 .vscode/settings.json
 .venv/
 env.py
+db.sqlite3
