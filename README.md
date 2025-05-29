@@ -2,6 +2,8 @@
 
 The brains behind the art.
 
+![How to create Abstract Model Class in Django?](https://www.geeksforgeeks.org/how-to-create-abstract-model-class-in-django/)
+![Docs: Django - Abstract base classes](https://docs.djangoproject.com/en/5.2/topics/db/models/#model-inheritance)
 ![GitHub last commit](https://img.shields.io/github/last-commit/SamAtkinsonModeste/artifexlab-api)
 ![GitHub repo size](https://img.shields.io/github/repo-size/SamAtkinsonModeste/artifexlab-api)
 ![GitHub issues](https://img.shields.io/github/issues/SamAtkinsonModeste/artifexlab-api)
