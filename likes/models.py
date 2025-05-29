@@ -12,26 +12,22 @@ class LikeBase(models.Model):
     """
     Abstract Base class with the common fields
     to be used for all the Like models
-    For each model class the values for:
+    For each model class the field name and values for:
     ForeignKey
     related_name
-    {self.content.title}
     will be unique
     """
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    artwork = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="%(app_label)s_%(class)s_likes", on_delete=models.CASCADE
-    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True
         ordering = ["-created_at"]
-        unique_together = ("owner", "content")
 
 
-    def __str__(self):
-        return f"{self.owner.username} liked {self.content.title}"
+
+
 
 
 
@@ -40,7 +36,10 @@ class LikeArtwork(LikeBase):
     Like model for Artwork content.
     Inherits from LikeBase
     """
-    content =models.ForeignKey(Artwork, related_name="artwork_likes", on_delete=models.CASCADE)
+    artwork =models.ForeignKey(Artwork, on_delete=models.CASCADE,related_name="artwork_likes" )
+
+def __str__(self):
+    return f"{self.owner.username} liked {self.artwork.title}"
 
 
 
@@ -50,7 +49,13 @@ class LikeTutorial(LikeBase):
     Like model for Tutorial content.
     Inherits from LikeBase
     """
-    content =models.ForeignKey(Tutorial, related_name="tutorial_likes", on_delete=models.CASCADE)
+    tutorial =models.ForeignKey(Tutorial, on_delete=models.CASCADE,related_name="tutorial_likes" )
+
+    class Meta:
+        unique_together = ("owner", "tutorial")
+
+    def __str__(self):
+        return f"{self.owner.username} liked {self.tutorial.title}"
 
 
 
