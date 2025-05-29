@@ -2,6 +2,7 @@ from django.urls import path
 from likes import views
 
 urlpatterns = [
-    path("likes/", views.LikeList.as_view()),
-    path("likes/<int:pk>/", views.LikeDetail.as_view()),
+    path("likesArtwork/", views.LikeArtworkList.as_view()),
+    path("likesArtwork/<int:pk>/", views.LikeArtworkDetail.as_view()),
+
 ]
