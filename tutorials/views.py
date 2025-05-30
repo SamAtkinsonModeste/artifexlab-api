@@ -1,3 +1,4 @@
+
 from django.db.models import Count
 from rest_framework import generics, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
@@ -15,8 +16,8 @@ class TutorialList(generics.ListCreateAPIView):
     serializer_class = TutorialSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Tutorial.objects.annotate(
-        tutorial_likes_count=Count("likes", distinct=True),
-        tutorial_comments_count=Count("comment", distinct=True),
+        tutorial_likes_count=Count("tutorial_likes", distinct=True),
+        tutorial_comments_count=Count("tutorial_comments", distinct=True),
     ).order_by("-created_at")
     filter_backends = [
         filters.OrderingFilter,
@@ -33,7 +34,7 @@ class TutorialList(generics.ListCreateAPIView):
 
     search_fields = [
         "owner__username",
-        "title",
+        "tutorial_title",
     ]
 
     ordering_fields = [
@@ -49,13 +50,13 @@ class TutorialList(generics.ListCreateAPIView):
 
 class TutorialDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    Retrieve a post and edit or delete it if you own it.
+    Retrieve a tutorial and edit or delete it if you own it.
     """
 
     serializer_class = TutorialSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Tutorial.objects.annotate(
         #REVIEW - for related names created in the like and comments models
-        tutorial_likes_count=Count("likes", distinct=True),
-        tutorial_comments_count=Count("comments", distinct=True),
+        tutorial_likes_count=Count("tutorial_likes", distinct=True),
+        tutorial_comments_count=Count("tutorial_comments", distinct=True),
     ).order_by("-created_at")
