@@ -4,12 +4,10 @@ from likes.models import LikeArtwork
 
 
 class ArtworkSerializer(serializers.ModelSerializer):
-    artwork_owner = serializers.ReadOnlyField(source="owner.username")
-    is_artwork_owner = serializers.SerializerMethodField()
-    artist_profile_id = serializers.ReadOnlyField(source="owner.profile.id")
-    artist_profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
-    artwork_title = serializers.ReadOnlyField(source="title")
-    artwork_description = serializers.ReadOnlyField(source="description")
+    owner = serializers.ReadOnlyField(source="owner.username")
+    is_owner = serializers.SerializerMethodField()
+    profile_id = serializers.ReadOnlyField(source="owner.profile.id")
+    profile_image = serializers.ReadOnlyField(source="owner.profile.profile_image.url")
     artwork_liked_id = serializers.SerializerMethodField()
     artwork_likes_count = serializers.ReadOnlyField()
     # artwork_comments_count = serializers.ReadOnlyField()
@@ -29,7 +27,7 @@ class ArtworkSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Image height cannot exceed 4096px!")
         return value
 
-    def get_is_artwork_owner(self, obj):
+    def get_is_owner(self, obj):
         request = self.context["request"]
         return request.user == obj.owner
 
@@ -44,16 +42,16 @@ class ArtworkSerializer(serializers.ModelSerializer):
         model = Artwork
         fields = [
             "id",
-            "artwork_owner",
-            "is_artwork_owner",
-            "artist_profile_id",
-            "artist_profile_image",
+            "owner",
+            "is_owner",
+            "profile_id",
+            "profile_image",
             "created_at",
             "updated_at",
-            "artwork_title",
-            "artwork_description",
+            "title",
+            "description",
             "image",
-              "artwork_liked_id",
+            "artwork_liked_id",
             #  "artwork_comments_count",
             "artwork_likes_count",
         ]
