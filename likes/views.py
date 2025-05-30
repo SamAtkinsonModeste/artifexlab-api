@@ -19,8 +19,8 @@ class BaseLikeList(generics.ListCreateAPIView):
 
 class BaseLikeDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve a Artwork post's like or delete it
-    by id if you own it.
+    BaseLikeDetail to enable inheritance by all views.
+    Attempt at DRY
     """
     permission_classes = [IsOwnerOrReadOnly]
 
