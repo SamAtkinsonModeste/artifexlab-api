@@ -32,4 +32,4 @@ class CommentTutorial(CommentBase):
     Comment model for Tutorial content.
     Inherits from CommentBase
     """
-   artwork = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="tutorial_comments")
+   tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="tutorial_comments")
