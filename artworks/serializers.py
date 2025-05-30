@@ -36,7 +36,7 @@ class ArtworkSerializer(serializers.ModelSerializer):
     def get_artwork_liked_id(self, obj):
         user = self.context["request"].user
         if user.is_authenticated:
-            artwork_liked = LikeArtwork.filter(owner=user, artwork=obj).first()
+            artwork_liked = LikeArtwork.objects.filter(owner=user, artwork=obj).first()
             return artwork_liked.id if artwork_liked else None
         return None
 
