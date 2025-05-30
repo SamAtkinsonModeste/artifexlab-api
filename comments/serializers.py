@@ -57,7 +57,7 @@ class CommentArtworkSerializer(BaseCommentSerializer):
     """
     class Meta:
         model = CommentArtwork
-        fields =[BaseCommentSerializer.Meta.fields + ["artwork"]]
+        fields =BaseCommentSerializer.Meta.fields + ["artwork"]
 
 
 class CommentArtworkDetailSerializer(CommentArtworkSerializer):
@@ -79,7 +79,7 @@ class CommentTutorialSerializer(BaseCommentSerializer):
     """
     class Meta:
         model = CommentTutorial
-        fields =[BaseCommentSerializer.Meta.fields + ["tutorial"]]
+        fields =BaseCommentSerializer.Meta.fields + ["tutorial"]
 
 
 class CommentTutorialDetailSerializer(CommentTutorialSerializer):
