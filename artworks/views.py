@@ -53,6 +53,6 @@ class ArtworkDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ArtworkSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Artwork.objects.annotate(
-        artwork_likes_count=Count("likes", distinct=True),
+        artwork_likes_count=Count("artwork_likes", distinct=True),
         # comments_count=Count("comments", distinct=True),
     ).order_by("-created_at")
