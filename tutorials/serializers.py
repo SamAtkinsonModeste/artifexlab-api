@@ -1,13 +1,15 @@
 from rest_framework import serializers
 from .models import Tutorial
-from likes.models import Like
+from likes.models import LikeTutorial
+from tutorial_steps.serializers import TutorialStepsSerializer
 
 class TutorialSerializer(serializers.ModelSerializer):
-  tutorial_owner = serializers.ReadOnlyField(source="owner.username")
-  is_tutorial_owner = serializers.SerializerMethodField()
-  tutor_profile_id = serializers.ReadOnlyField(source="owner.profile.id")
-  tutor_profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
-  tutorial_liked_id = serializers.SerializerMethodField()
+  owner = serializers.ReadOnlyField(source="owner.username")
+  is_owner = serializers.SerializerMethodField()
+  profile_id = serializers.ReadOnlyField(source="owner.profile.id")
+  profile_image = serializers.ReadOnlyField(source="owner.profile_image.image.url")
+  tutorial_steps = serializers.SerializerMethodField()
+  tutorial_likes_id = serializers.SerializerMethodField()
   tutorial_likes_count = serializers.ReadOnlyField()
   tutorial_comments_count = serializers.ReadOnlyField()
 
@@ -35,16 +37,20 @@ class TutorialSerializer(serializers.ModelSerializer):
 
 
 
-  def get_is_tutorial_owner  (self, obj):
+  def get_is_owner(self, obj):
     request = self.context["request"]
     return request.user == obj.owner
 
+  def get_tutorial_steps(self, obj):
+      steps = obj.tutorial_steps.all().order_by("step_number")
+      return TutorialStepsSerializer(steps, many=True).data
 
-  def get_tutorial_liked_id(self, obj):
+
+  def get_tutorial_likes_id(self, obj):
         user = self.context["request"].user
         if user.is_authenticated:
-            tutorial_liked = Like.objects.filter(owner=user, tutorial=obj).first()
-            return tutorial_liked.id if tutorial_liked else None
+            tutorial_likes = LikeTutorial.objects.filter(owner=user, tutorial=obj).first()
+            return tutorial_likes.id if tutorial_likes else None
         return None
 
 
@@ -53,17 +59,18 @@ class TutorialSerializer(serializers.ModelSerializer):
   class Meta:
     model = Tutorial
     fields = [
-       "id",
-            "tutorial_owner",
-            "is_tutorial_owner",
-            "tutor_profile_id",
-            "tutor_profile_image",
-            "created_at",
-            "updated_at",
+            "id",
+            "owner",
+            "is_owner",
+            "profile_id",
+            "profile_image",
             "tutorial_title",
             "tutorial_description",
             "preview_art",
-            "tutorial_liked_id",
+            "tutorial_steps",
+             "created_at",
+            "updated_at",
+            "tutorial_likes_id",
             "tutorial_comments_count",
             "tutorial_likes_count",
     ]
