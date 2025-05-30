@@ -15,8 +15,8 @@ class ArtworkList(generics.ListCreateAPIView):
     serializer_class = ArtworkSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Artwork.objects.annotate(
-        artworks_likes_count=Count("artwork_likes", distinct=True),
-        # comments_count=Count("comments", distinct=True),
+        artwork_likes_count=Count("artwork_likes", distinct=True),
+        artwork_comments_count=Count("artwork_comments", distinct=True),
     ).order_by("-created_at")
     filter_backends = [
         filters.OrderingFilter,
@@ -36,7 +36,7 @@ class ArtworkList(generics.ListCreateAPIView):
     ]
 
     ordering_fields = [
-        #  "comments_count",
+        "artwork_comments_count",
         "artwork_likes_count",
         "artwork_likes__created_at",
     ]
@@ -54,5 +54,5 @@ class ArtworkDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Artwork.objects.annotate(
         artwork_likes_count=Count("artwork_likes", distinct=True),
-        # comments_count=Count("comments", distinct=True),
+        artwork_comments_count=Count("artwork_comments", distinct=True),
     ).order_by("-created_at")
