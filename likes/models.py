@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import User
 from artworks.models import Artwork
 from tutorials.models import Tutorial
@@ -63,45 +62,3 @@ class LikeTutorial(LikeBase):
 
 
 
-# class LikeTutorial(models.Model):
-#     """
-#     Like model, related to 'owner' and 'tutorials'.
-#     'owner' is a User instance and 'tutorial' is a Tutorial instance.
-#     'unique_together' makes sure a user can't like the same tutorial twice.
-#     """
-
-#     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-#     tutorial = models.ForeignKey(
-#         Tutorial, related_name="tutorial_likes", on_delete=models.CASCADE
-#     )
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-#     class Meta:
-#         ordering = ["-created_at"]
-#         unique_together = ("owner", "tutorial")
-
-#     def __str__(self):
-#         return f"{self.owner.username} liked {self.tutorial.title}"
-
-
-
-
-# class LikeTutorialAttempts(models.Model):
-#     """
-#     Like model, related to 'owner' and 'tutorial attempts'.
-#     'owner' is a User instance and 'tutorial attempts' is a TutorialAttempt instance.
-#     'unique_together' makes sure a user can't like the same tutorial attempt twice.
-#     """
-
-#     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-#     tutorial_attempt = models.ForeignKey(
-#         TutorialAttempt, related_name="likes", on_delete=models.CASCADE
-#     )
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-#     class Meta:
-#         ordering = ["-created_at"]
-#         unique_together = ("owner", "tutorial")
-
-#     def __str__(self):
-#         return f"{self.owner.username} liked {self.tutorial.title}"
