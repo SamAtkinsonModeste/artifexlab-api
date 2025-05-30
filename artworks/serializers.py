@@ -3,6 +3,7 @@ from .models import Artwork
 from likes.models import LikeArtwork
 
 
+
 class ArtworkSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
     is_owner = serializers.SerializerMethodField()
@@ -10,7 +11,7 @@ class ArtworkSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source="owner.profile.profile_image.url")
     artwork_liked_id = serializers.SerializerMethodField()
     artwork_likes_count = serializers.ReadOnlyField()
-    # artwork_comments_count = serializers.ReadOnlyField()
+    artwork_comments_count = serializers.ReadOnlyField()
 
     def validate_image(self, value):
         """
@@ -52,6 +53,6 @@ class ArtworkSerializer(serializers.ModelSerializer):
             "description",
             "image",
             "artwork_liked_id",
-            #  "artwork_comments_count",
+            "artwork_comments_count",
             "artwork_likes_count",
         ]
