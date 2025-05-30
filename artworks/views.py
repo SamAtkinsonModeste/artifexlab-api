@@ -32,7 +32,7 @@ class ArtworkList(generics.ListCreateAPIView):
 
     search_fields = [
         "owner__username",
-        "artwork_title",
+        "title",
     ]
 
     ordering_fields = [
