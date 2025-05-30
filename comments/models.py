@@ -1,21 +1,35 @@
 from django.db import models
 from django.contrib.auth.models import User
 from artworks.models import Artwork
+from tutorials.models import Tutorial
 
-
-class Comment(models.Model):
+class CommentBase(models.Model):
     """
     Comment model, related to User and Artwork
     """
-
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Artwork, on_delete=models.CASCADE, related_name="comments")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     content = models.TextField()
 
     class Meta:
+        abstract = True
         ordering = ["-created_at"]
 
     def __str__(self):
      return self.content[:50] + ("..." if len(self.content) > 50 else "")
+
+
+class CommentArtwork(CommentBase):
+   """
+    Comment model for Artwork content.
+    Inherits from CommentBase
+    """
+   artwork = models.ForeignKey(Artwork, on_delete=models.CASCADE, related_name="artwork_comments")
+
+class CommentTutorial(CommentBase):
+   """
+    Comment model for Tutorial content.
+    Inherits from CommentBase
+    """
+   artwork = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="tutorial_comments")
