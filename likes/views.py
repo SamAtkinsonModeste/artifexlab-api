@@ -3,9 +3,12 @@ from artlab_api.permissions import IsOwnerOrReadOnly
 from likes.models import LikeArtwork, LikeTutorial
 from likes.serializers import LikeArtworkSerializer, LikeTutorialSerializer
 
+
+#NOTE - Created List & Detail BASE views
 class BaseLikeList(generics.ListCreateAPIView):
     """
-    List likes or create a like if logged in.
+    BaseLike to enable inheritance by all views.
+    Attempt at DRY
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
@@ -13,45 +16,66 @@ class BaseLikeList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
+
 class BaseLikeDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve a like or delete it by id if you own it.
+    Retrieve a Artwork post's like or delete it
+    by id if you own it.
     """
     permission_classes = [IsOwnerOrReadOnly]
 
 
+
+#SECTION - Views using the Base Views
+
 class LikeArtworkList(BaseLikeList):
+    """
+    API view to retrieve a list of artwork likes or create a new artwork like.
+
+    GET: Returns a list of all LikeArtwork instance
+    POST: Creates a new artwork_like instance
+    """
     serializer_class = LikeArtworkSerializer
     queryset = LikeArtwork.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
+
 class LikeArtworkDetail(BaseLikeDetail):
     """
-    Retrieve a like or delete it by id if you own it.
+   API view to retrieve, update, or delete a single Artwork instance.
+
+    - GET: Returns the details of the specified Artwork.
+    - PUT/PATCH: Updates the specified Artwork.
+    - DELETE: Deletes the specified Artwork.
     """
     serializer_class = LikeArtworkSerializer
     queryset = LikeArtwork.objects.all()
 
-# class LikeList(generics.ListCreateAPIView):
-#     """
-#     List likes or create a like if logged in.
-#     """
-
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-#     serializer_class = LikeSerializer
-#     queryset = Like.objects.all()
-
-#     def perform_create(self, serializer):
-#         serializer.save(owner=self.request.user)
 
 
-# class LikeDetail(generics.RetrieveDestroyAPIView):
-#     """
-#     Retrieve a like or delete it by id if you own it.
-#     """
+class LikeTutorialList(BaseLikeList):
+    """
+   API view to retrieve a list of tutorial likes or create a new tutorial like.
 
-#     permission_classes = [IsOwnerOrReadOnly]
-#     serializer_class = LikeSerializer
-#     queryset = Like.objects.all()
+    GET: Returns a list of all LikeTutorial instance
+    POST: Creates a new tutorial_like instance
+    """
+    serializer_class = LikeTutorialSerializer
+    queryset = LikeTutorial.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class LikeTutorialDetail(BaseLikeDetail):
+    """
+  API view to retrieve, update, or delete a single Tutorial instance.
+
+    - GET: Returns the details of the specified Tutorial.
+    - PUT/PATCH: Updates the specified Tutorial.
+    - DELETE: Deletes the specified Tutorial.
+    """
+    serializer_class = LikeTutorial
+    queryset = LikeTutorial.objects.all()
