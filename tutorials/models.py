@@ -6,7 +6,7 @@ class Tutorial(models.Model):
   Tutorial model, related to "owner" a user instance
   """
 
-  owner = models.ForeignKey(User, on_delete=models.CASCADE)
+  owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tutorial")
   tutorial_title = models.CharField(max_length= 255)
   tutorial_description = models.TextField(blank=True)
   # TODO - Create default image
