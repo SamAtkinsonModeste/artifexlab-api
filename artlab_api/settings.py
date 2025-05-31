@@ -101,7 +101,7 @@ INSTALLED_APPS = [
     "followers",
     "likes",
     "tutorials",
-    "tutorial_steps",
+
 
 ]
 
