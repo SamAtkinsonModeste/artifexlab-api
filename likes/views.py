@@ -38,8 +38,7 @@ class LikeArtworkList(BaseLikeList):
     serializer_class = LikeArtworkSerializer
     queryset = LikeArtwork.objects.all()
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+
 
 
 
@@ -66,8 +65,7 @@ class LikeTutorialList(BaseLikeList):
     serializer_class = LikeTutorialSerializer
     queryset = LikeTutorial.objects.all()
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+
 
 class LikeTutorialDetail(BaseLikeDetail):
     """
