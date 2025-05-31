@@ -63,6 +63,8 @@ class TutorialStepsList(BaseTutorialList):
     """
     serializer_class = TutorialStepsSerializer
     queryset =TutorialSteps.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["tutorial"]
 
 
 class TutorialAttemptsList(BaseTutorialList):
@@ -72,6 +74,8 @@ class TutorialAttemptsList(BaseTutorialList):
     """
     serializer_class = TutorialAttemptsSerializer
     queryset =TutorialAttempts.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["tutorial_try"]
 
 
 class TutorialFeedbackList(BaseTutorialList):
@@ -83,6 +87,8 @@ class TutorialFeedbackList(BaseTutorialList):
     """
     serializer_class = TutorialFeedbackSerializer
     queryset =TutorialFeedback.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["tutorial_attempt"]
 
 
 class BaseTutorialDetail(generics.RetrieveUpdateDestroyAPIView):
