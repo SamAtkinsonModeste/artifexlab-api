@@ -41,6 +41,7 @@ class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
   profile_id = serializers.ReadOnlyField(source="owner.profile.id")
   profile_image = serializers.ReadOnlyField(source="owner.profile_image.image.url")
   tutorial_steps = serializers.SerializerMethodField()
+  full_steps = serializers.TutorialStepsSerializer(many=True, read_only=True)
   tutorial_likes_id = serializers.SerializerMethodField()
   tutorial_likes_count = serializers.ReadOnlyField()
   tutorial_comments_count = serializers.ReadOnlyField()
@@ -98,6 +99,7 @@ class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
             "profile_image",
             "tutorial_title",
             "tutorial_description",
+            "tutorial_steps",
             "preview_art",
             "tutorial_likes_id",
             "tutorial_comments_count",
