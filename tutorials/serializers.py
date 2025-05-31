@@ -1,11 +1,29 @@
 from rest_framework import serializers
-from .models import Tutorial
+from .models import Tutorial, TutorialSteps, TutorialAttempts, TutorialFeedback
 from likes.models import LikeTutorial
-from tutorial_steps.serializers import TutorialStepsSerializer
 
-class TutorialSerializer(serializers.ModelSerializer):
+class BaseTutorialSerializer(serializers.ModelSerializer):
   owner = serializers.ReadOnlyField(source="owner.username")
   is_owner = serializers.SerializerMethodField()
+
+  def get_is_owner(self, obj):
+    request = self.context["request"]
+    return request.user == obj.owner
+
+
+  class Meta:
+    abstract = True
+    fields = [
+            "id",
+            "owner",
+            "is_owner",
+             "created_at",
+            "updated_at",
+    ]
+
+
+
+class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
   profile_id = serializers.ReadOnlyField(source="owner.profile.id")
   profile_image = serializers.ReadOnlyField(source="owner.profile_image.image.url")
   tutorial_steps = serializers.SerializerMethodField()
@@ -34,16 +52,12 @@ class TutorialSerializer(serializers.ModelSerializer):
         return value
 
 
+  def get_tutorial_steps(self,obj):
+     step_num = obj.tutorial_steps.order_by("step_number").first()
+     return step_num.step_title if step_num else None
 
 
 
-  def get_is_owner(self, obj):
-    request = self.context["request"]
-    return request.user == obj.owner
-
-  def get_tutorial_steps(self, obj):
-      steps = obj.tutorial_steps.all().order_by("step_number")
-      return TutorialStepsSerializer(steps, many=True).data
 
 
   def get_tutorial_likes_id(self, obj):
@@ -55,22 +69,50 @@ class TutorialSerializer(serializers.ModelSerializer):
 
 
 
-
   class Meta:
     model = Tutorial
-    fields = [
-            "id",
-            "owner",
-            "is_owner",
+    fields = BaseTutorialSerializer.Meta.fields + [
             "profile_id",
             "profile_image",
             "tutorial_title",
             "tutorial_description",
             "preview_art",
-            "tutorial_steps",
-             "created_at",
-            "updated_at",
             "tutorial_likes_id",
             "tutorial_comments_count",
             "tutorial_likes_count",
     ]
+
+
+class TutorialStepsSerializer(BaseTutorialSerializer,serializers.ModelSerializer):
+
+  class Meta:
+      model = TutorialSteps
+      fields = BaseTutorialSerializer.Meta.fields + [
+         "tutorial",
+         "step_number",
+         "step_title",
+         "step_content",
+         "step_image",
+      ]
+
+
+class TutorialAttemptsSerializer(BaseTutorialSerializer,serializers.ModelSerializer):
+
+  class Meta:
+      model = TutorialAttempts
+      fields = BaseTutorialSerializer.Meta.fields + [
+         "tutorial_try",
+         "submission_image",
+         "reflection_text",
+      ]
+
+
+class TutorialFeedbackSerializer(BaseTutorialSerializer,serializers.ModelSerializer):
+
+  class Meta:
+      model = TutorialFeedback
+      fields = BaseTutorialSerializer.Meta.fields + [
+         "tutorial_attempt",
+         "mentor_feedback",
+
+      ]
