@@ -3,6 +3,12 @@ from .models import Tutorial, TutorialSteps, TutorialAttempts, TutorialFeedback
 from likes.models import LikeTutorial
 
 class BaseTutorialSerializer(serializers.ModelSerializer):
+  """
+    Base serializer to include shared fields and logic:
+    - owner username
+    - is_owner check
+    - created_at and updated_at timestamps
+    """
   owner = serializers.ReadOnlyField(source="owner.username")
   is_owner = serializers.SerializerMethodField()
 
@@ -17,13 +23,21 @@ class BaseTutorialSerializer(serializers.ModelSerializer):
             "id",
             "owner",
             "is_owner",
-             "created_at",
+            "created_at",
             "updated_at",
     ]
 
 
 
 class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
+  """
+    Full serializer for the Tutorial model.
+    Includes:
+    - profile info
+    - related tutorial steps (first step title preview)
+    - like/comment counts
+    - current user's like ID (if it exists)
+    """
   profile_id = serializers.ReadOnlyField(source="owner.profile.id")
   profile_image = serializers.ReadOnlyField(source="owner.profile_image.image.url")
   tutorial_steps = serializers.SerializerMethodField()
@@ -53,6 +67,10 @@ class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
 
 
   def get_tutorial_steps(self,obj):
+     """
+    Returns the title of the first step in the tutorial,
+    ordered by step_number. Used for preview purposes.
+    """
      step_num = obj.tutorial_steps.order_by("step_number").first()
      return step_num.step_title if step_num else None
 
@@ -61,6 +79,10 @@ class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
 
 
   def get_tutorial_likes_id(self, obj):
+        """
+    Returns the ID of the LikeTutorial instance for the current user,
+    if it exists. Used to check whether the tutorial is liked by the user.
+    """
         user = self.context["request"].user
         if user.is_authenticated:
             tutorial_likes = LikeTutorial.objects.filter(owner=user, tutorial=obj).first()
@@ -84,6 +106,10 @@ class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
 
 
 class TutorialStepsSerializer(BaseTutorialSerializer,serializers.ModelSerializer):
+  """
+    Serializer for individual tutorial steps.
+    Includes tutorial link, step number, title, content, and optional image.
+    """
 
   class Meta:
       model = TutorialSteps
@@ -97,6 +123,10 @@ class TutorialStepsSerializer(BaseTutorialSerializer,serializers.ModelSerializer
 
 
 class TutorialAttemptsSerializer(BaseTutorialSerializer,serializers.ModelSerializer):
+  """
+    Serializer for user-submitted tutorial attempts.
+    Includes submitted image and personal reflection.
+    """
 
   class Meta:
       model = TutorialAttempts
@@ -108,6 +138,10 @@ class TutorialAttemptsSerializer(BaseTutorialSerializer,serializers.ModelSeriali
 
 
 class TutorialFeedbackSerializer(BaseTutorialSerializer,serializers.ModelSerializer):
+  """
+    Serializer for feedback on tutorial attempts.
+    Intended to be used by the tutorial owner (mentor).
+    """
 
   class Meta:
       model = TutorialFeedback
