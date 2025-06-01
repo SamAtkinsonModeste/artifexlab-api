@@ -1,6 +1,6 @@
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
-from .models import CommentArtwork, CommentTutorial
+from .models import CommentArtwork, CommentTutorial, CommentTutorialAttempts
 
 
 class BaseCommentSerializer(serializers.ModelSerializer):
@@ -57,13 +57,13 @@ class CommentArtworkSerializer(BaseCommentSerializer):
     """
     class Meta:
         model = CommentArtwork
-        fields =BaseCommentSerializer.Meta.fields + ["artwork"]
+        fields = BaseCommentSerializer.Meta.fields + ["artwork"]
 
 
 class CommentArtworkDetailSerializer(CommentArtworkSerializer):
     """
     Serializer for the CommentArtwork model used in Detail view
-    artwork is a read only field so that we dont have to set it on each update
+    artwork is a read only field so that we don't have to set it on each update
     """
 
     artwork = serializers.ReadOnlyField(source="artwork.id")
@@ -79,13 +79,32 @@ class CommentTutorialSerializer(BaseCommentSerializer):
     """
     class Meta:
         model = CommentTutorial
-        fields =BaseCommentSerializer.Meta.fields + ["tutorial"]
+        fields = BaseCommentSerializer.Meta.fields + ["tutorial"]
 
 
 class CommentTutorialDetailSerializer(CommentTutorialSerializer):
     """
     Serializer for the CommentTutorial model used in Detail view
-    tutoril is a read only field so that we dont have to set it on each update
+    tutorial is a read only field so that we don't have to set it on each update
     """
 
     tutorial = serializers.ReadOnlyField(source="tutorial.id")
+
+class CommentTutorialAttemptSerializer(BaseCommentSerializer):
+    """
+    Serializer for creating and listing comments on tutorials.
+    Inherits shared fields and logic from BaseCommentSerializer and adds the 'tutorial_attempts' field to associate the comment with a specific tutorial.
+
+    """
+    class Meta:
+        model = CommentTutorialAttempts
+        fields = BaseCommentSerializer.Meta.fields + ["tutorial_attempts"]
+
+
+class CommentTutorialAttemptDetailSerializer(CommentTutorialAttemptSerializer):
+    """
+    Serializer for the CommentTutorialAttpts model used in Detail view
+    tutorial_attempts is a read only field so that we don't have to set it on each update
+    """
+
+    tutorial_attempts = serializers.ReadOnlyField(source="tutorial_attempts.id")
