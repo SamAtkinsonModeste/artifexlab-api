@@ -83,7 +83,7 @@ class TutorialAttempts(BaseTutorial):
 
 
 class TutorialFeedback(BaseTutorial):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tutorial__owner")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tutorial_owner")
     tutorial_attempt = models.ForeignKey(TutorialAttempts, on_delete=models.CASCADE, related_name="feedback_entries")
     mentor_feedback = models.TextField(blank=True)
 
