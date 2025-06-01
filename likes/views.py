@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from artlab_api.permissions import IsOwnerOrReadOnly
-from likes.models import LikeArtwork, LikeTutorial
-from likes.serializers import LikeArtworkSerializer, LikeTutorialSerializer
+from likes.models import LikeArtwork, LikeTutorial, LikeTutorialAttempt
+from likes.serializers import LikeArtworkSerializer, LikeTutorialSerializer, LikeTutorialAttemptSerializer
 
 
 #NOTE - Created List & Detail BASE views
@@ -77,3 +77,25 @@ class LikeTutorialDetail(BaseLikeDetail):
     """
     serializer_class = LikeTutorial
     queryset = LikeTutorial.objects.all()
+
+class LikeTutorialAttemptList(BaseLikeList):
+    """
+   API view to retrieve a list of tutorial likes or create a new tutorial like.
+
+    GET: Returns a list of all LikeTutorial Attempt instance
+    POST: Creates a new tutorial_like instance
+    """
+    serializer_class = LikeTutorialAttemptSerializer
+    queryset = LikeTutorialAttempt.objects.all()
+
+
+class LikeTutorialDetail(BaseLikeDetail):
+    """
+  API view to retrieve, update, or delete a single TutorialAttempt instance.
+
+    - GET: Returns the details of the specified Tutorial.
+    - PUT/PATCH: Updates the specified Tutorial.
+    - DELETE: Deletes the specified Tutorial.
+    """
+    serializer_class = LikeTutorialAttemptSerializer
+    queryset = LikeTutorialAttempt.objects.all()
