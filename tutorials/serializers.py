@@ -41,7 +41,7 @@ class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
   profile_id = serializers.ReadOnlyField(source="owner.profile.id")
   profile_image = serializers.ReadOnlyField(source="owner.profile_image.image.url")
   tutorial_steps = serializers.SerializerMethodField()
-  full_steps = serializers.TutorialStepsSerializer(many=True, read_only=True)
+  tutorial_steps_titles = serializers.SerializerMethodField()
   tutorial_likes_id = serializers.SerializerMethodField()
   tutorial_likes_count = serializers.ReadOnlyField()
   tutorial_comments_count = serializers.ReadOnlyField()
@@ -72,8 +72,16 @@ class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
     Returns the title of the first step in the tutorial,
     ordered by step_number. Used for preview purposes.
     """
-     step_num = obj.tutorial_steps.order_by("step_number").first()
-     return step_num.step_title if step_num else None
+     step_num = obj.tutorial_steps.order_by("step_number").count()
+     return step_num if step_num else None
+
+  def get_tutorial_steps_titles(self,obj):
+     """
+    Returns the title of the first step in the tutorial,
+    ordered by step_number. Used for preview purposes.
+    """
+     step_title = obj.tutorial_steps.order_by("step_number").values_list("step_title", flat=True)
+     return step_title if step_title else None
 
 
 
@@ -100,6 +108,7 @@ class TutorialSerializer(BaseTutorialSerializer, serializers.ModelSerializer):
             "tutorial_title",
             "tutorial_description",
             "tutorial_steps",
+             "tutorial_steps_titles",
             "preview_art",
             "tutorial_likes_id",
             "tutorial_comments_count",
