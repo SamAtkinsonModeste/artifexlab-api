@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from artworks.models import Artwork
-from tutorials.models import Tutorial
+from tutorials.models import Tutorial, TutorialAttempts
 
 class CommentBase(models.Model):
     """
@@ -24,6 +24,7 @@ class CommentArtwork(CommentBase):
    """
     Comment model for Artwork content.
     Inherits from CommentBase
+    Deletes comment if related artwork is deleted.
     """
    artwork = models.ForeignKey(Artwork, on_delete=models.CASCADE, related_name="artwork_comments")
 
@@ -31,5 +32,15 @@ class CommentTutorial(CommentBase):
    """
     Comment model for Tutorial content.
     Inherits from CommentBase
+    Deletes comment if related Tutorial is deleted.
     """
    tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="tutorial_comments")
+
+
+class CommentTutorialAttempts(CommentBase):
+    """
+    Comment model for Tutorial Attempts content.
+    Inherits from CommentBase
+    Deletes comment if related Tutorial Attempt is deleted.
+    """
+    tutorial_attempts = models.ForeignKey(TutorialAttempts, on_delete=models.CASCADE, related_name="tutorial_attempts_comments")
