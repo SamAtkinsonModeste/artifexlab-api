@@ -1,8 +1,8 @@
 from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from artlab_api.permissions import IsOwnerOrReadOnly
-from .models import CommentArtwork, CommentTutorial
-from .serializers import CommentArtworkSerializer, CommentArtworkDetailSerializer, CommentTutorialSerializer, CommentTutorialDetailSerializer
+from .models import CommentArtwork, CommentTutorial, CommentTutorialAttempts
+from .serializers import CommentArtworkSerializer, CommentArtworkDetailSerializer, CommentTutorialSerializer, CommentTutorialDetailSerializer, CommentTutorialAttemptSerializer, CommentTutorialAttemptDetailSerializer
 
 
 class BaseCommentList(generics.ListCreateAPIView):
@@ -26,14 +26,20 @@ class CommentArtworkList(BaseCommentList):
     serializer_class = CommentArtworkSerializer
     queryset = CommentArtwork.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["artwork"]
+    filterset_fields = ["artwork", "owner"]
 
 
 class CommentTutorialList(BaseCommentList):
     serializer_class = CommentTutorialSerializer
     queryset = CommentTutorial.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["tutorial"]
+    filterset_fields = ["tutorial", "owner"]
+
+class CommentTutorialAttemptList(BaseCommentList):
+    serializer_class = CommentTutorialAttemptSerializer
+    queryset = CommentTutorialAttempts.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["tutorial_attempts", "owner"]
 
 
 class CommentArtworkDetail(BaseCommentDetail):
@@ -44,3 +50,7 @@ class CommentArtworkDetail(BaseCommentDetail):
 class CommentTutorialDetail(BaseCommentDetail):
     serializer_class = CommentTutorialDetailSerializer
     queryset = CommentTutorial.objects.all()
+
+class CommentTutorialAttemptDetail(BaseCommentDetail):
+    serializer_class = CommentTutorialAttemptDetailSerializer
+    queryset = CommentTutorialAttempts.objects.all()
