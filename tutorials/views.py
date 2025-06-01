@@ -75,7 +75,7 @@ class TutorialAttemptsList(BaseTutorialList):
     serializer_class = TutorialAttemptsSerializer
     queryset =TutorialAttempts.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["tutorial_try"]
+    filterset_fields = ["tutorial_tried"]
 
 
 class TutorialFeedbackList(BaseTutorialList):
@@ -151,8 +151,8 @@ class TutorialFeedbackDetail(BaseTutorialDetail):
     queryset = TutorialFeedback.objects.all()
 
     def perform_create(self, serializer):
-        tutorial_attempt = serializer.validated_data.get("tutorial_attempt")
-        tutorial_owner = tutorial_attempt.tutorial_try.owner
+        tutorial_attempt = serializer.validated_data.get("feedback_entries")
+        tutorial_owner = tutorial_attempt.tutorial_tried.owner
 
         if self.request.user != tutorial_owner:
             raise PermissionDenied("Only the tutorial owner can give feedback.")

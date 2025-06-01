@@ -51,6 +51,7 @@ class TutorialSteps(BaseTutorial):
   "created_at"
   "updated_at"
   """
+  owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tutorial_steps_owner")
   tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="tutorial_steps")
   step_number = models.PositiveIntegerField()
   step_title = models.CharField(max_length= 255)
@@ -72,6 +73,7 @@ class TutorialAttempts(BaseTutorial):
     "created_at"
     "updated_at"
     """
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tutorial_attempt_owner")
     tutorial_tried = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="tutorial_tried")
     submission_image =  models.ImageField(upload_to="images/", blank=True, null=True)
     reflection_text = models.TextField(blank=True)
@@ -81,6 +83,7 @@ class TutorialAttempts(BaseTutorial):
 
 
 class TutorialFeedback(BaseTutorial):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tutorial__owner")
     tutorial_attempt = models.ForeignKey(TutorialAttempts, on_delete=models.CASCADE, related_name="feedback_entries")
     mentor_feedback = models.TextField(blank=True)
 
