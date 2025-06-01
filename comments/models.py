@@ -7,7 +7,6 @@ class CommentBase(models.Model):
     """
     Comment model, related to User and Artwork
     """
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     content = models.TextField()
@@ -26,6 +25,7 @@ class CommentArtwork(CommentBase):
     Inherits from CommentBase
     Deletes comment if related artwork is deleted.
     """
+   owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments_artwork")
    artwork = models.ForeignKey(Artwork, on_delete=models.CASCADE, related_name="artwork_comments")
 
 class CommentTutorial(CommentBase):
@@ -34,6 +34,7 @@ class CommentTutorial(CommentBase):
     Inherits from CommentBase
     Deletes comment if related Tutorial is deleted.
     """
+   owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments_tutorial")
    tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="tutorial_comments")
 
 
@@ -43,4 +44,5 @@ class CommentTutorialAttempts(CommentBase):
     Inherits from CommentBase
     Deletes comment if related Tutorial Attempt is deleted.
     """
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments_tutorial_attempts")
     tutorial_attempts = models.ForeignKey(TutorialAttempts, on_delete=models.CASCADE, related_name="tutorial_attempts_comments")
