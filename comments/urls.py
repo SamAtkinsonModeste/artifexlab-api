@@ -6,4 +6,6 @@ urlpatterns = [
     path("artwork-comments/<int:pk>/", views.CommentArtworkDetail.as_view()),
     path("tutorial-comments/", views.CommentTutorialList.as_view()),
     path("tutorial-comments/<int:pk>/", views.CommentTutorialDetail.as_view()),
+    path("tutorial-attempt-comments/", views.CommentTutorialAttempList.as_view()),
+    path("tutorial-attempt-comments/<int:pk>/", views.CommentTutorialAttemptDetail.as_view()),
 ]
