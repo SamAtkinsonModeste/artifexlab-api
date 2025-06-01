@@ -1,6 +1,6 @@
 from django.db import IntegrityError
 from rest_framework import serializers
-from .models import LikeArtwork, LikeTutorial
+from .models import LikeArtwork, LikeTutorial, LikeTutorialAttempt
 
 
 class LikeBaseSerializer(serializers.ModelSerializer):
@@ -33,3 +33,8 @@ class LikeTutorialSerializer(LikeBaseSerializer, serializers.ModelSerializer):
     class Meta:
         model = LikeTutorial
         fields = LikeBaseSerializer.Meta.fields + ["tutorial"]
+
+class LikeTutorialAttemptSerializer(LikeBaseSerializer, serializers.ModelSerializer):
+    class Meta:
+        model = LikeTutorialAttempt
+        fields = LikeBaseSerializer.Meta.fields + ["tutorial_attempt"]
