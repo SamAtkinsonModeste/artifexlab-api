@@ -121,11 +121,13 @@ class TutorialStepsSerializer(BaseTutorialSerializer,serializers.ModelSerializer
     Serializer for individual tutorial steps.
     Includes tutorial link, step number, title, content, and optional image.
     """
+  tutorial_title = serializers.ReadOnlyField(source="tutorial.tutorial_title")
 
   class Meta:
       model = TutorialSteps
       fields = BaseTutorialSerializer.Meta.fields + [
          "tutorial",
+         "tutorial_title",
          "step_number",
          "step_title",
          "step_content",
