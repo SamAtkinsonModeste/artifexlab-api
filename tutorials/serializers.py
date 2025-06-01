@@ -144,7 +144,7 @@ class TutorialAttemptsSerializer(BaseTutorialSerializer,serializers.ModelSeriali
   class Meta:
       model = TutorialAttempts
       fields = BaseTutorialSerializer.Meta.fields + [
-         "tutorial_try",
+         "tutorial_tried",
          "submission_image",
          "reflection_text",
       ]
