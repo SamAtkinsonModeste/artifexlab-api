@@ -140,6 +140,8 @@ class TutorialAttemptsSerializer(BaseTutorialSerializer,serializers.ModelSeriali
     Serializer for user-submitted tutorial attempts.
     Includes submitted image and personal reflection.
     """
+  tutorial_attempt_likes_count = serializers.ReadOnlyField()
+  tutorial_attempt_comments_count = serializers.ReadOnlyField()
 
   class Meta:
       model = TutorialAttempts
@@ -147,6 +149,9 @@ class TutorialAttemptsSerializer(BaseTutorialSerializer,serializers.ModelSeriali
          "tutorial_tried",
          "submission_image",
          "reflection_text",
+         "tutorial_attempt_likes_count",
+         "tutorial_attempt_comments_count",
+
       ]
 
 
