@@ -8,6 +8,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     following_id = serializers.SerializerMethodField()
     artworks_count = serializers.ReadOnlyField()
+    tutorials_count = serializers.ReadOnlyField()
+    tutorials_attempt_count = serializers.ReadOnlyField()
     followers_count = serializers.ReadOnlyField()
     following_count = serializers.ReadOnlyField()
 
@@ -38,6 +40,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             "is_owner",
             "following_id",
             "artworks_count",
+            "tutorials_count",
+            "tutorials_attempt_count",
             "followers_count",
             "following_count",
         ]
