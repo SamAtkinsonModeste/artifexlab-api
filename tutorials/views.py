@@ -73,7 +73,10 @@ class TutorialAttemptsList(BaseTutorialList):
      All logged-in users can contribute attempts.
     """
     serializer_class = TutorialAttemptsSerializer
-    queryset =TutorialAttempts.objects.all()
+    queryset =TutorialAttempts.objects.annotate(
+        tutorial_attempt_likes_count=Count("tutorial_attempt_likes", distinct=True),
+        tutorial_attempt_comments_count=Count("tutorial_attempts_comments", distinct=True),
+    ).order_by("-created_at")
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["tutorial_tried"]
 
@@ -137,7 +140,10 @@ class TutorialAttemptDetail(BaseTutorialDetail):
   - DELETE: Deletes the specified Tutorial Attempt.
     """
     serializer_class = TutorialAttemptsSerializer
-    queryset = TutorialAttempts.objects.all()
+    queryset =TutorialAttempts.objects.annotate(
+        tutorial_attempt_likes_count=Count("tutorial_attempt_likes", distinct=True),
+        tutorial_attempt_comments_count=Count("tutorial_attempts_comments", distinct=True),
+    ).order_by("-created_at")
 
 class TutorialFeedbackDetail(BaseTutorialDetail):
     """
