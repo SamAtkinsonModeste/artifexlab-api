@@ -15,33 +15,35 @@ At its heart, ArtifexLab is about collaboration and encouragement. Users can che
 <details>
   <summary><strong>📚 Table of Contents</strong></summary>
 
-- [Project Overview](#project-overview)
+- [📌 Project Overview](#project-overview)
 
-- [API Aims](#api-aims)
+- [🎯 API Aims](#api-aims)
 
-- [User Stories](#user-stories)
+- [🧑‍💻 User Stories](#user-stories)
 
-- [Database Schema](#database-schema)
+- [📁 Frontend Repository](#frontend-repository)
 
-- [Agile Development](#agile-development)
+- [🔧 Core Technologies Used](#core-technologies-used)
 
-- [Features](#features)
+- [🗂️ Database Schema](#database-schema)
 
-- [Authentication & Permissions](#authentication--permissions)
+- [🌀 Agile Development](#agile-development)
 
-- [Helpful Resources](#helpful-resources)
+- [✨ Features](#features)
 
-- [Future Enhancements](#future-enhancements)
+- [🔐 Authentication & Permissions](#authentication--permissions)
 
-- [Testing](#testing)
+- [📚 Helpful Resources](#helpful-resources)
 
-- [Deployment](#deployment)
+- [🔮 Future Enhancements](#future-enhancements)
 
-- [Technologies Used](#technologies-used)
+- [🧪 Testing](#testing)
 
-- [Credits](#credits)
+- [🚀 Deployment](#deployment)
 
-- [Honourable Mentions](#honourable-mentions)
+- [📝 Credits](#credits)
+
+- [🏅 Honourable Mentions](#honourable-mentions)
 
 </details>
 
@@ -88,6 +90,8 @@ The **ArtifexLab API** was developed to serve as the backend for a creative comm
 - To support learning and growth through structured tutorial content
 - To integrate cleanly with the React-based frontend via RESTful endpoints
 
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
 ---
 
 ## User Stories
@@ -127,8 +131,11 @@ These user stories focus specifically on the backend API. Frontend functionality
 
 ---
 
-📁 The frontend repository that connects with this API can be found here:
+###### 📁 The frontend repository that connects with this API can be found here:
+
 🔗 [ArtifexLab Frontend](https://github.com/SamAtkinsonModeste/artifexlab)
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
 
 ---
 
@@ -147,7 +154,7 @@ These user stories focus specifically on the backend API. Frontend functionality
 
 ### 🗂️ Database Schema
 
-The ArtifexLab API is powered by a relational PostgreSQL database. The schema was designed using Luna Modeler, allowing for clear relationships between users, creative content, social interactions, and educational features.
+The **ArtifexLab API** is powered by a relational PostgreSQL database. The schema was designed using Luna Modeler, allowing for clear relationships between users, creative content, social interactions, and educational features.
 
 It follows Django’s relational model structure, with one-to-many and many-to-one relationships across artworks, tutorials, tutorial attempts, and their associated likes, comments, and feedback. Each model is tightly scoped for clarity, scalability, and separation of concerns.
 
@@ -157,7 +164,7 @@ It follows Django’s relational model structure, with one-to-many and many-to-o
 
 Schema diagram created with Luna Modeler and exported from the final database structure.
 
-##### 🔑 Key Models Overview\*\*
+##### 🔑 Key Models Overview
 
 **User** – Default Django user model storing account credentials
 
@@ -182,6 +189,8 @@ Schema diagram created with Luna Modeler and exported from the final database st
 **Follows** – Tracks user-following relationships to power personalized feeds
 
 This schema supports full CRUD functionality, detailed user interaction, and a mentorship workflow that encourages collaboration and growth in the ArtifexLab community.
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
 
 ---
 
@@ -215,6 +224,244 @@ User stories were divided into backend-specific and frontend-focused tasks. Back
 
 A full breakdown of epics and MoSCoW priorities is available in the AGILE.md file. [Coming soon – placeholder]
 
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
+---
+
+## ✨ Features
+
+This API supports a full range of features to foster creativity, learning, and user engagement. Each endpoint is powered by Django REST Framework and carefully constructed serializers that go beyond basic model data.
+
+**These serializers include computed fields such as:**
+
+- `is_owner` — to conditionally show edit/delete options
+- `like_count` and `comment_count` — for displaying user engagement
+- `profile_id` and `profile_image` — to reduce frontend lookup operations
+
+This ensures that the frontend can render rich, interactive features without needing extra queries or logic.
+
+Below is an overview of key features (each accompanied by a screenshot from the frontend):
+
+---
+
+#### 🧑‍🎨 User Profile
+
+Every user has a public profile that includes their display name, bio, and profile image. The API supports:
+
+- Viewing any user’s profile via /profiles/ and /profiles/<id>/
+
+- Updating your own profile if is_owner = true
+
+- Automatically including helpful fields in the serializer such as:
+
+  - **profile_image** — Profile picture for easy rendering
+
+  - **is_owner** — To allow conditional editing
+
+  - **following_id** — For toggling follow/unfollow buttons
+
+  - **artworks_count, tutorials_count, tutorials_attempt_count** — Content metrics
+
+  - **followers_count, following_count** — Social engagement stats
+
+These enrich the frontend UI without extra API calls, keeping the interface responsive and context-aware.
+
+🖼️ Screenshot: Profile Detail View
+Demonstrates **is_owner**, content counts, social metrics, and editable fields for the authenticated user.
+![Profile Detail View](docs/images/1-profile-detail.png)
+
+ <p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
+---
+
+#### 🎨 Artwork List View
+
+Returns a paginated list of all artworks posted by users.
+
+This endpoint supports full CRUD operations for authenticated users. It includes custom serializer fields such as:
+
+- **is_owner** – Allows the frontend to check if the current user can edit/delete
+
+- **profile_id and profile_image** – To reduce extra lookup calls
+
+- **artwork_liked_id** – Lets users see if they’ve liked a post and unlike it if needed
+
+- **artwork_comments_count and artwork_likes_count** – Useful for displaying interaction counts on cards
+
+This view supports ordering, search, and filtering by owner.
+
+**Included Fields:**
+
+```id, owner, is_owner, profile_id, profile_image
+created_at, updated_at, title, description, image
+artwork_liked_id, artwork_comments_count, artwork_likes_count
+```
+
+![Artwork List View](docs/images/2-artworks-list.png)
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
+---
+
+#### 💬 Artwork Comments List View
+
+Displays all comments associated with a single artwork. This endpoint supports community interaction through user feedback.
+
+**Serializer additions include:**
+
+- **is_owner** – Indicates whether the comment was written by the current user
+
+- **profile_id, profile_image** – Gives visual identity and relational context
+
+- **artwork** – Clearly ties each comment back to the artwork it's attached to
+
+**Included Fields:**
+
+```
+id, owner, is_owner, profile_id, profile_image
+artwork, comment_text,created_at, updated_at
+```
+
+![Artwork Comments List View](docs/images/7-artworks-comments.png)
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
+---
+
+#### 📘 Tutorials List View
+
+This view presents all published tutorials, allowing users to explore creative guides shared by mentors. Each tutorial is enriched with metadata and tied to the mentor's profile.
+
+**Serializer enhancements include:**
+
+- **is_owner** - for update/delete visibility
+
+- **profile_id and profile_image** - for quick display of the author's details
+
+- **tutorial_steps_count, tutorial_comments_count, and tutorial_likes_count** - to reflect engagement
+
+- **tutorial_favourited_id** - to track if the current user has favourited the tutorial
+
+**Included Fields:**
+
+```
+  id, owner, title, cover_image, created_at, updated_at,
+  is_owner, profile_id, profile_image, tutorial_steps_count,
+  tutorial_comments_count, tutorial_likes_count, tutorial_favourited_id
+```
+
+![Tutorials List View](docs/images/3-tutorials-list.png)
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
+---
+
+#### 🧾 Tutorial Step Detail View
+
+Each tutorial contains multiple steps, viewable via the tutorial step detail endpoint. These provide the full educational breakdown of a tutorial.
+
+**Serializer enhancements include:**
+
+- **is_owner** - for secure edit/delete access
+
+- **profile_id and profile_image** - for attribution
+
+- **tutorial_id** - to link back to the parent tutorial
+
+**Included Fields:**
+
+```
+ id, owner, tutorial, title, content, image, created_at, updated_at,
+  is_owner, profile_id, profile_image, tutorial_id
+```
+
+![Tutorial Step Detail View](docs/images/4-tutorial-steps.png)
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
+---
+
+#### 🧪 Tutorial Attempt List View
+
+Shows a list of tutorial attempts submitted by users who completed a mentor-led tutorial.
+
+Each attempt includes metadata and useful serializer enhancements to track user engagement and ownership:
+
+- **is_owner** – Helps frontend determine if the edit/delete options should be visible
+
+- **profile_id, profile_image** – Provide instant profile context
+
+- **tutorial_attempt_liked_id** – Whether the current user has liked this attempt
+
+- **tutorial_attempt_comments_count, tutorial_attempt_likes_count** – Interaction metrics
+
+**Included Fields:**
+
+```
+id, owner, is_owner, profile_id, profile_image tutorial, created_at,
+updated_at, attempt_text, attempt_image tutorial_attempt_liked_id,
+ tutorial_attempt_comments_count, tutorial_attempt_likes_count
+```
+
+![Tutorial Attempt List](docs/images/5-tutorial-attempt-list.png)
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
+---
+
+#### 💬 Tutorial Feedback View
+
+Mentors can leave feedback on users’ tutorial attempts to help them reflect and improve. This feature supports one-to-one relationships, where each tutorial attempt can have exactly one feedback item.
+
+**Serializer enhancements include:**
+
+- **is_owner** - for edit/delete visibility
+
+- **profile_id and profile_image** - to show which mentor provided the feedback
+
+- **tutorial_attempt_id** - to link the response clearly to the original submission
+
+**Included Fields:**
+
+```
+id, owner, tutorial_attempt, content, created_at, updated_at,
+is_owner, profile_id, profile_image, tutorial_attempt_id
+```
+
+![Tutorial Feedback Detail View](docs/images/6-tutorial-feedback-details.png)
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
+---
+
+#### 👥 Followers List View
+
+Displays all follow relationships associated with the current user — either as the follower or the followed. This endpoint is key to powering personalized content like tailored artwork and tutorial feeds.
+
+**Serializer enhancements include:**
+
+- **followed_name and followed_profile_image** - to easily identify who the user is following
+
+- **created_at** - to indicate when the follow relationship began
+
+- **owner** - for traceability and admin control
+
+**Included Fields:**
+
+```
+id, owner, followed, followed_name, followed_profile_image, created_at
+```
+
+✨ This view also demonstrates pagination in action, returning results in batches to improve performance and frontend rendering. The presence of next, previous, and count fields in the response makes it ideal for dynamic list components.
+
+![Followers List View](docs/images/8-followers-list-paganation.png)
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+
+---
+
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
 [Creating a Base Serilizer](https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer?newreg=adb169505ce64135a559eed23d578f26)
 [Creating Custom Generic Views](https://www.django-rest-framework.org/api-guide/generic-views/#creating-custom-base-classes)
 [How to create Abstract Model Class in Django?](https://www.geeksforgeeks.org/how-to-create-abstract-model-class-in-django/)
