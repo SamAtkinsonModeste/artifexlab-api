@@ -74,6 +74,7 @@ DEBUG = os.environ.get("DEV") == "1"
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
+    "artifexlab-api-d4e6d81a8b08.herokuapp.com"
 ]
 
 
@@ -166,6 +167,7 @@ else:
     DATABASES = {
         "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
+
 
 
 # Password validation
