@@ -30,11 +30,11 @@ class ProfileList(generics.ListAPIView):
 
     ordering_fields = [
         "artworks_count",
-        " tutorials_count",
+        "tutorials_count",
         "tutorials_attempt_count",
         "followers_count",
         "following_count",
-        "owner__following__created_at ",
+        "owner__following__created_at",
         "owner__followed__created_at",
     ]
 
