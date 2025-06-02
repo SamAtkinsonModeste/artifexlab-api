@@ -15,6 +15,8 @@ class ProfileList(generics.ListAPIView):
 
     queryset = Profile.objects.annotate(
         artworks_count=Count("owner__artworks", distinct=True),
+        tutorials_count=Count("owner__tutorial", distinct=True),
+        tutorials_attempt_count=Count("owner__tutorial_attempt", distinct=True),
         followers_count=Count("owner__followed", distinct=True),
         following_count=Count("owner__following", distinct=True),
     ).order_by("-created_at")
@@ -28,6 +30,8 @@ class ProfileList(generics.ListAPIView):
 
     ordering_fields = [
         "artworks_count",
+        " tutorials_count",
+        "tutorials_attempt_count",
         "followers_count",
         "following_count",
         "owner__following__created_at ",
@@ -43,6 +47,8 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Profile.objects.annotate(
         artworks_count=Count("owner__artworks", distinct=True),
+        tutorials_count=Count("owner__tutorial", distinct=True),
+        tutorials_attempt_count=Count("owner__tutorial_attempt", distinct=True),
         followers_count=Count("owner__followed", distinct=True),
         following_count=Count("owner__following", distinct=True),
     ).order_by("-created_at")
