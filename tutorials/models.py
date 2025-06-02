@@ -73,7 +73,7 @@ class TutorialAttempts(BaseTutorial):
     "created_at"
     "updated_at"
     """
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tutorial_attempt_owner")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tutorial_attempt")
     tutorial_tried = models.ForeignKey(Tutorial, on_delete=models.CASCADE, related_name="tutorial_tried")
     submission_image =  models.ImageField(upload_to="images/", blank=True, null=True)
     reflection_text = models.TextField(blank=True)
