@@ -100,7 +100,7 @@ These user stories reflect the core functionality supported by the ArtifexLab AP
 - View a feed of artworks from all users or just those I follow
 - Upload new artwork with images and captions
 - Update or delete my own artworks
-- View tutorials created by staff or mentors
+- View tutorials created by mentors
 - Comment on both artworks and tutorials
 - Like or unlike artworks
 - Favourite or unfavourite tutorials
@@ -112,15 +112,76 @@ These user stories reflect the core functionality supported by the ArtifexLab AP
 
 - Sign up for an account to access features and interact with the community
 
-### As a **Mentor or Staff User**, I can:
+### As a **Mentor**, I can:
 
 - Create, edit, or delete tutorials
+- Create, edit or delete steps for my tutorials
 - View and provide feedback on tutorial attempts submitted by users
 
 ### As a **Site Admin**, I can:
 
 - Manage all content through the Django admin panel
 - Moderate inappropriate content or user activity as needed
+
+These user stories focus specifically on the backend API. Frontend functionality is handled in a separate repository.
+
+---
+
+📁 The frontend repository that connects with this API can be found here:
+🔗 [ArtifexLab Frontend](https://github.com/SamAtkinsonModeste/artifexlab)
+
+---
+
+### 🔧 Core Technologies Used
+
+- **Python 3.11** — Core programming language
+- **Django** — High-level Python web framework
+- **Django REST Framework** — Used to build the API
+- **PostgreSQL** — Production database (via ElephantSQL)
+- **Cloudinary** — Media hosting for user-uploaded images
+- **dj-rest-auth** — Authentication and token handling
+- **Heroku** — Platform for API deployment
+- **CORS Headers** — Enables frontend-backend communication
+
+---
+
+### 🗂️ Database Schema
+
+The ArtifexLab API is powered by a relational PostgreSQL database. The schema was designed using Luna Modeler, allowing for clear relationships between users, creative content, social interactions, and educational features.
+
+It follows Django’s relational model structure, with one-to-many and many-to-one relationships across artworks, tutorials, tutorial attempts, and their associated likes, comments, and feedback. Each model is tightly scoped for clarity, scalability, and separation of concerns.
+
+#### 🖼️ Schema Diagram
+
+![Database Schema](docs/images/artifexlab-schema.png)
+
+Schema diagram created with Luna Modeler and exported from the final database structure.
+
+##### 🔑 Key Models Overview\*\*
+
+**User** – Default Django user model storing account credentials
+
+**Profiles** – Extends the User model with display name, image, and bio; used for linking to all user-created content
+
+**Artworks** – Represents digital artwork submitted by users, including image, title, and description
+
+**Likes Artwork / Comments Artwork** – Tracks likes and comments on individual artworks
+
+**Tutorials** – Authored by mentors, these contain educational content including images and step-by-step instructions
+
+**Tutorial Steps** – A breakdown of individual steps for each tutorial
+
+**Tutorial Likes / Comments** – Enables user interaction with tutorial content
+
+**Tutorial Attempts** – Stores submissions from users attempting tutorials, including optional images and written descriptions
+
+**Tutorial Feedback** – Feedback left by mentors in response to tutorial attempts
+
+**Tutorial Attempt Likes / Comments** – Lets users appreciate or comment on each other’s submissions
+
+**Follows** – Tracks user-following relationships to power personalized feeds
+
+This schema supports full CRUD functionality, detailed user interaction, and a mentorship workflow that encourages collaboration and growth in the ArtifexLab community.
 
 [Creating a Base Serilizer](https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer?newreg=adb169505ce64135a559eed23d578f26)
 [Creating Custom Generic Views](https://www.django-rest-framework.org/api-guide/generic-views/#creating-custom-base-classes)
