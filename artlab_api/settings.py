@@ -55,7 +55,9 @@ JWT_AUTH_COOKIE = "my-app-auth"
 JWT_AUTH_REFRESH_COOKIE = "my-refresh-token"
 JWT_AUTH_SAMESITE = "None"
 
-
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "artlab_api.serializers.CurrentUserSerializer",
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -65,8 +67,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-#TODO - Add the os.eviron.get() version
-DEBUG = True
+
+DEBUG = os.environ.get("DEV") == "1"
 
 
 ALLOWED_HOSTS = [
@@ -85,7 +87,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cloudinary_storage',
     'django.contrib.staticfiles',
-   "rest_framework",
+     "rest_framework",
     "django_filters",
     "rest_framework.authtoken",
     "dj_rest_auth",
