@@ -6,5 +6,8 @@ urlpatterns = [
     path("artwork-likes/<int:pk>/", views.LikeArtworkDetail.as_view()),
     path("tutorial-likes/",views.LikeTutorialList.as_view()),
     path("tutorial-likes/<int:pk>/", views.LikeTutorialDetail.as_view()),
+    path("tutorial-attempt-likes/",views.LikeTutorialAttemptList.as_view()),
+    path("tutorial-likes/<int:pk>/", views.LikeTutorialAttemptDetail.as_view()),
+
 
 ]
