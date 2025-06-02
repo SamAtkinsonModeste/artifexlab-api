@@ -89,7 +89,7 @@ class LikeTutorialAttemptList(BaseLikeList):
     queryset = LikeTutorialAttempt.objects.all()
 
 
-class LikeTutorialDetail(BaseLikeDetail):
+class LikeTutorialAttemptDetail(BaseLikeDetail):
     """
   API view to retrieve, update, or delete a single TutorialAttempt instance.
 
