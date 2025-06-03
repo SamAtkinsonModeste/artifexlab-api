@@ -71,7 +71,7 @@ Here’s how I got the project set up locally using the built-in Git tools in VS
 
 ---
 
-## 🧪 2. Create and Activate a Virtual Environment
+## 🧪 Create and Activate a Virtual Environment
 
 Before installing any packages, it’s a good idea to set up a **virtual environment**. This keeps your project’s dependencies neatly contained — so you’re not installing things globally or messing with other Python projects on your system.
 
@@ -122,7 +122,7 @@ This way, your keys stay safe and out of version control.
 
 ### Don’t forget!
 
-👉 Add env.py to your .gitignore file so it never gets pushed to
+👉 Add env.py to your `.gitignore` file so it never gets pushed to GitHub
 This keeps your private data private 🔐
 
 ---
@@ -138,7 +138,7 @@ Here’s what I used and why ⬇️
 ### ✅ Install core dependencies:
 
 ```bash
-pip install django<4 gunicorn dj_database_url psycopg2 dj3-cloudinary-storage
+pip install django<4 gunicorn dj_database_url psycopg2 django-cloudinary-storage
 ```
 
 - **django<4** — I pinned Django to stay below version 4 for stability and Heroku compatibility (targeting 3.2).
@@ -183,8 +183,6 @@ This saves a list of all installed packages and versions to a file called requir
 
 ---
 
----
-
 ## 🏗️ Project Setup
 
 ### 1. Start the Django Project and First App
@@ -194,7 +192,7 @@ With your virtual environment active and dependencies installed, it’s time to 
 From your terminal in VSCode, run the following command to create your project:
 
 ```bash
-django-admin startproject project_name_here .
+django-admin startproject artlab_api .
 ```
 
 👉 That period at the end is important!
@@ -215,9 +213,9 @@ Once that’s done, you’ll see the familiar Django project structure, and you�
 
 ### 2. Apply Migrations & Run the Server
 
-Once the project and your first app are created, it’s time to let Django set up the database 🧱
+**Once the project and your first app are created, it’s time to let Django set up the database 🧱**
 
-In the terminal, run:
+**In the terminal, run:**
 
 ```bash
 python manage.py migrate
@@ -268,13 +266,84 @@ Then I overrode the default like this:
 
 ```python
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'your_project.serializers.CurrentUserSerializer'
+    'USER_DETAILS_SERIALIZER': 'artlab_api.serializers.CurrentUserSerializer'
 }
 ```
 
 📝 Replace your_project with the actual folder name where your custom serializer lives.
 
 This makes sure the logged-in user data returned from the API includes both their profile ID (needed for linking content) and profile image (handy for UI display).
+
+---
+
+### 🛤️ Add a Root Route to the API
+
+To make the API feel more welcoming (especially for first-time visitors), I added a simple root route that returns a friendly message.
+
+##### ✅ Steps:
+
+1. In your project folder, create a new file if it doesn’t exist already:
+   your_project/views.py
+
+2. Inside views.py, add:
+
+```python
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view()
+def root_route(request):
+    return Response({"message": "Welcome to my Django REST Framework API!"})
+
+```
+
+3. Then open your urls.py and:
+
+- Import the view at the top:
+
+```python
+from .views import root_route
+
+```
+
+- Add the path to your urlpatterns list:
+
+```python
+path('', root_route),
+
+```
+
+Now when someone visits your Heroku backend root URL, they’ll see your welcome message instead of a blank page ✨
+
+---
+
+## 📚 Pagination & JSON Renderer Setup
+
+To improve the API experience, I added pagination (so large datasets are broken into pages), and set the JSON renderer for production.
+
+Open settings.py and scroll to where your REST_FRAMEWORK settings are defined. Then update it like this:
+
+```python
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%d %b %Y',
+}
+
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+
+```
+
+✅ What this does:
+
+Adds default pagination (10 results per page)
+
+Ensures consistent datetime formatting like 03 Jun 2025
+
+Switches to JSON output only when the site is live (to reduce unnecessary renderer options)
 
 ---
 
@@ -286,8 +355,6 @@ For production, I used **PostgreSQL** instead of SQLite (which is only suitable 
 
 As a Code Institute student, I was provided with a free, hosted PostgreSQL instance.
 Once it was created, I copied the `DATABASE_URL` from the CI backend form — this string includes all the credentials needed to connect Django to the hosted database.
-
-💡 **Note:** If you're doing this manually in the future, tools like [Render](https://render.com), [Supabase](https://supabase.com), or [Railway](https://railway.app) also provide free PostgreSQL hosting options.
 
 ---
 
@@ -329,3 +396,86 @@ This ensures that all images uploaded by users are automatically stored in the c
 📌 You’ll also want to set up your media/ path and make sure it's not ignored in development, depending on your DEBUG setting.
 
 ---
+
+## 🌍 CORS Setup for Frontend Connection
+
+To allow your frontend (hosted on a different domain) to talk to your Django backend, you’ll need to configure
+**CORS** (Cross-Origin Resource Sharing) in `settings.py`:
+
+```python
+CORS_ALLOWED_ORIGINS = [os.environ.get("CLIENT_ORIGIN")]
+CORS_ALLOW_CREDENTIALS = True
+JWT_AUTH_SAMESITE = 'None'
+```
+
+This allows credentials like JWT cookies to be sent securely across domains.
+
+---
+
+## ⚙️ Heroku Deployment (Backend)
+
+### 1. Create a Heroku App
+
+To deploy your Django backend to Heroku:
+
+1. Go to [https://dashboard.heroku.com](https://dashboard.heroku.com)
+2. Click the **“New”** dropdown button (top right), then select **“Create new app”**
+3. Give your app a unique name (e.g. `artifexlab-api`)
+4. Choose your region (I used Europe)
+5. Click **“Create app”**
+
+That sets up your Heroku app — ready for configuration and deployment.
+
+---
+
+### 2. Connect to GitHub
+
+Instead of using the Heroku CLI, I connected my GitHub repo directly:
+
+1. Go to your app’s **Deploy** tab
+2. Under **Deployment method**, choose **GitHub**
+3. Authorize access (if prompted), then search for your repo (e.g. `artifexlab-api`)
+4. Click **Connect**
+
+Once connected, you can either enable **Automatic Deploys** from the `main` branch or click **Deploy Branch** manually when you're ready.
+
+---
+
+### 3. Add Heroku Config Vars
+
+Go to the **Settings** tab → click **Reveal Config Vars** and add the following:
+
+| Key                     | Value (example)                       |
+| ----------------------- | ------------------------------------- |
+| `DATABASE_URL`          | From CI PostgreSQL or your own host   |
+| `SECRET_KEY`            | Your Django secret key                |
+| `CLOUDINARY_URL`        | From your Cloudinary account          |
+| `DISABLE_COLLECTSTATIC` | `1` (only needed before first deploy) |
+
+---
+
+### 4. Add a `Procfile`
+
+At the root of your backend repo (same level as `manage.py`), add a file called `Procfile` (no extension). Inside, add:
+
+```Procfile
+release: python manage.py migrate
+web: gunicorn artlab_app.wsgi
+```
+
+**📝 Replace your_project_name with the name of the folder that contains your** settings.py.
+_In my case that is artlab_api, however you could name your project anything you like that reflects your project._
+
+### 5. Deploy from GitHub
+
+**Now go back to the Deploy tab in Heroku:**
+
+- Make sure your deployment method is GitHub
+
+- Scroll down to **Manual deploy**
+
+- Choose the branch (usually main) and click Deploy Branch
+
+🎉 Heroku will build your app and let you know once it’s live!
+
+🔙 [Back to README](./README.md)
