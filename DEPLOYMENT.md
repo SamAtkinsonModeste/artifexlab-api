@@ -275,3 +275,57 @@ REST_AUTH_SERIALIZERS = {
 📝 Replace your_project with the actual folder name where your custom serializer lives.
 
 This makes sure the logged-in user data returned from the API includes both their profile ID (needed for linking content) and profile image (handy for UI display).
+
+---
+
+## 🌐 PostgreSQL Setup
+
+### 1. Hosted PostgreSQL via Code Institute
+
+For production, I used **PostgreSQL** instead of SQLite (which is only suitable for development).
+
+As a Code Institute student, I was provided with a free, hosted PostgreSQL instance.
+Once it was created, I copied the `DATABASE_URL` from the CI backend form — this string includes all the credentials needed to connect Django to the hosted database.
+
+💡 **Note:** If you're doing this manually in the future, tools like [Render](https://render.com), [Supabase](https://supabase.com), or [Railway](https://railway.app) also provide free PostgreSQL hosting options.
+
+---
+
+### 2. Connect PostgreSQL in `settings.py`
+
+To plug the hosted database into Django, I updated my `DATABASES` setting like this:
+
+```python
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+```
+
+This tells Django to look for the DATABASE_URL in your environment variables — which Heroku will automatically provide if you’ve set it in your Config Vars.
+
+### ☁️ Cloudinary Media Storage
+
+Instead of storing user-uploaded images locally (which doesn’t work well with Heroku), I used Cloudinary to host all media files — like profile pictures, artwork images, etc.
+
+#### ✅ Steps Taken:
+
+- Installed the Cloudinary package (already covered in the dependencies section ✅)
+
+- Created a free Cloudinary account
+
+- Added the CLOUDINARY_URL to Heroku Config Vars
+
+Then I updated my settings to tell Django where to store uploaded media:
+
+```python
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+```
+
+This ensures that all images uploaded by users are automatically stored in the cloud instead of trying to save to Heroku (which wipes your filesystem every time you redeploy).
+
+📌 You’ll also want to set up your media/ path and make sure it's not ignored in development, depending on your DEBUG setting.
+
+---
