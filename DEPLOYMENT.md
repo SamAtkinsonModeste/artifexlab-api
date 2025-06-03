@@ -182,3 +182,33 @@ This saves a list of all installed packages and versions to a file called requir
 📌 This file is super important — it tells Heroku (and other developers) exactly what’s needed to run your app!
 
 ---
+
+---
+
+## 🏗️ Project Setup
+
+### 1. Start the Django Project and First App
+
+With your virtual environment active and dependencies installed, it’s time to get Django up and running 🎉
+
+From your terminal in VSCode, run the following command to create your project:
+
+```bash
+django-admin startproject project_name_here .
+```
+
+👉 That period at the end is important!
+It tells Django to place the project inside the current folder (your cloned repo), rather than creating a whole new subfolder. This keeps everything nice and tidy.
+
+Next, create your first app — in my case, this was the profiles app:
+
+```bash
+python manage.py startapp profiles
+
+```
+
+You’ll repeat this step later for each app in your project (e.g. posts, tutorials, comments, etc).
+
+Once that’s done, you’ll see the familiar Django project structure, and you’re ready to start adding your apps to INSTALLED_APPS and writing views. 💻✨
+
+---
