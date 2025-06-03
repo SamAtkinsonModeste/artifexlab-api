@@ -124,3 +124,61 @@ This way, your keys stay safe and out of version control.
 
 👉 Add env.py to your .gitignore file so it never gets pushed to
 This keeps your private data private 🔐
+
+---
+
+---
+
+## 📦 3. Install Project Dependencies
+
+Once your virtual environment is activated, it’s time to install the packages your Django project needs to run — both locally and on Heroku.
+
+Here’s what I used and why ⬇️
+
+### ✅ Install core dependencies:
+
+```bash
+pip install django<4 gunicorn dj_database_url psycopg2 dj3-cloudinary-storage
+```
+
+- **django<4** — I pinned Django to stay below version 4 for stability and Heroku compatibility (targeting 3.2).
+
+- **gunicorn** — Required by Heroku to serve Django apps in production.
+
+- **dj_database_url** — Helps Django connect to the production PostgreSQL database using an environment variable.
+
+- **psycopg2** — Lets Django talk to PostgreSQL.
+
+- **django-cloudinary-storage** — Integrates Django with Cloudinary so user-uploaded images (like artwork and profile pics) are stored in the cloud.
+
+---
+
+#### ✅ Install REST framework & authentication tools:
+
+```bash
+pip install dj-rest-auth djangorestframework-simplejwt django-cors-headers
+
+```
+
+- **dj-rest-auth** — Handles login, logout, registration, and password reset flows.
+
+- **djangorestframework-simplejwt** — Adds JWT (JSON Web Token) support for secure API access.
+
+- **django-cors-headers** — Allows your frontend and backend to talk to each other from different domains (e.g. React + Django).
+
+---
+
+#### 📝 Save your dependencies
+
+After installing everything, run:
+
+```bash
+pip freeze > requirements.txt
+
+```
+
+This saves a list of all installed packages and versions to a file called requirements.txt.
+
+📌 This file is super important — it tells Heroku (and other developers) exactly what’s needed to run your app!
+
+---
