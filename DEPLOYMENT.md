@@ -337,7 +337,7 @@ if 'DEV' not in os.environ:
 
 ```
 
-✅ What this does:
+##### ✅ What this does:
 
 Adds default pagination (10 results per page)
 
