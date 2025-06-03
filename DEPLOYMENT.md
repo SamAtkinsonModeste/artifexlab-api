@@ -212,3 +212,66 @@ You’ll repeat this step later for each app in your project (e.g. posts, tutori
 Once that’s done, you’ll see the familiar Django project structure, and you’re ready to start adding your apps to INSTALLED_APPS and writing views. 💻✨
 
 ---
+
+### 2. Apply Migrations & Run the Server
+
+Once the project and your first app are created, it’s time to let Django set up the database 🧱
+
+In the terminal, run:
+
+```bash
+python manage.py migrate
+```
+
+This applies the initial built-in migrations (like users, admin, sessions, etc.) so Django can create the default database structure.
+
+Then fire up the development server:
+
+```bash
+python manage.py runserver
+
+```
+
+You should see the familiar message that Django is running on http://127.0.0.1:8000/.
+Click the link or paste it in your browser to see the welcome screen — your project is officially alive! 🎉
+
+### 🔐 Authentication Setup
+
+To handle user accounts, login, and secure access to the API, I used:
+
+- **dj-rest-auth** - for registration, login, logout, and password reset
+
+- **simplejwt** - for JSON Web Token (JWT) support
+
+- **allauth (auto-installed with dj-rest-auth)** - to handle account logic like email validation
+
+#### 🔧 JWT Cookie Settings
+
+I used cookie-based JWT tokens to keep things secure and frontend-friendly.
+
+In settings.py, I added:
+
+```python
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+
+```
+
+These settings allow the frontend to securely store tokens in browser cookies instead of localStorage.
+
+#### 👤 Current User Serializer
+
+To give the frontend access to the current user’s profile ID and profile image, I created a custom serializer called CurrentUserSerializer.
+
+Then I overrode the default like this:
+
+```python
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'your_project.serializers.CurrentUserSerializer'
+}
+```
+
+📝 Replace your_project with the actual folder name where your custom serializer lives.
+
+This makes sure the logged-in user data returned from the API includes both their profile ID (needed for linking content) and profile image (handy for UI display).
