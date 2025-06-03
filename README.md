@@ -13,7 +13,7 @@ At its heart, ArtifexLab is about collaboration and encouragement. Users can che
 ---
 
 <details>
-  <summary><strong>📚 Table of Contents</strong></summary>
+  <summary><strong><span style="font-size: 1.5em;">📚 Table of Contents</span></strong></summary>
 
 - [📌 Project Overview](#project-overview)
 
