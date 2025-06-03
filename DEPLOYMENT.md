@@ -87,3 +87,40 @@ Here’s how I did it inside **VS Code**:
    ```bash
    python -m venv .venv
    ```
+3. Activate it:
+
+- **On Windows:**
+
+```bash
+.venv\Scripts\activate
+```
+
+- **On Mac/Linux:**
+
+```bash
+source .venv/bin/activate
+```
+
+4. You’ll know it worked when you see (.venv) at the beginning of your terminal line.
+
+### 🔐 Why You Need an env.py File
+
+Once your virtual environment is activated, you’ll often need to store sensitive info like API keys, Cloudinary credentials, or secret tokens. For this, we create a file called env.py.
+
+##### What goes in it?
+
+Example:
+
+```python
+import os
+
+os.environ["CLOUDINARY_URL"] = "your-cloudinary-url-here"
+os.environ["SECRET_KEY"] = "your-django-secret-key"
+```
+
+This way, your keys stay safe and out of version control.
+
+### Don’t forget!
+
+👉 Add env.py to your .gitignore file so it never gets pushed to
+This keeps your private data private 🔐
