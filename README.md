@@ -36,6 +36,8 @@ At its heart, ArtifexLab is about collaboration and encouragement. Users can che
 
 - [🔍 API Filtering, Searching, and Ordering](#-api-filtering-searching-and-ordering)
 
+- [🚀 Deployment](#-deployment)
+
 - [🔐 Authentication & Permissions](#-authentication--permissions)
 
 - [📚 Helpful Resources](#-helpful-resources)
@@ -581,6 +583,8 @@ These approaches helped me avoid unnecessary duplication while keeping the codeb
 [Back to top ⬆️](#-table-of-contents)
 
 ---
+
+## 🔮 Future Enhancements
 
 [Back to top ⬆️](#-table-of-contents)
 [Back to top ⬆️](#-table-of-contents)
