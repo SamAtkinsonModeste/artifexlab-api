@@ -1,4 +1,4 @@
-# ArtifexLab API 🎨
+## ArtifexLab API 🎨
 
 ---
 
@@ -9,41 +9,44 @@ _A Django REST API powering a creative showcase platform._
 
 A RESTful backend API built with Django REST Framework to power **ArtifexLab** — a creative hub where digital artists, designers, and creators can showcase their work, grow their skills, and connect with a supportive community.
 At its heart, ArtifexLab is about collaboration and encouragement. Users can cheer each other on through likes and thoughtful comments, while mentors provide guidance and feedback to those engaging with tutorials. Whether you're here to share your passion, learn something new, or support fellow artists — **ArtifexLab** is built to help you thrive.
+![ArtifexLab API Main Route](docs/images/9-api-home.png)
 
 ---
 
+## 📚 Table of Contents
+
 <details>
-  <summary><strong><span style="font-size: 1.5em;">📚 Table of Contents</span></strong></summary>
+  <summary><strong><span style="font-size: 1.1em;"> 👈  Click the arrow to view table of contents 📖</span></strong></summary>
 
-- [📌 Project Overview](#project-overview)
+- [📌 Project Overview](#-project-overview)
 
-- [🎯 API Aims](#api-aims)
+- [🎯 API Aims](#-api-aims)
 
-- [🧑‍💻 User Stories](#user-stories)
+- [🧑‍💻 User Stories](#-user-stories)
 
-- [📁 Frontend Repository](#frontend-repository)
+- [📁 Frontend Repository](#-frontend-repository)
 
-- [🔧 Core Technologies Used](#core-technologies-used)
+- [🔧 Core Technologies Used](#-core-technologies-used)
 
-- [🗂️ Database Schema](#database-schema)
+- [🧬 Database Schema](#-database-schema)
 
-- [🌀 Agile Development](#agile-development)
+- [🌀 Agile Development](#-agile-development)
 
-- [✨ Features](#features)
+- [✨ Features](#-features)
 
-- [🔐 Authentication & Permissions](#authentication--permissions)
+- [🔐 Authentication & Permissions](#-authentication--permissions)
 
-- [📚 Helpful Resources](#helpful-resources)
+- [📚 Helpful Resources](#-helpful-resources)
 
-- [🔮 Future Enhancements](#future-enhancements)
+- [🔮 Future Enhancements](#-future-enhancements)
 
-- [🧪 Testing](#testing)
+- [🧪 Testing](#-testing)
 
-- [🚀 Deployment](#deployment)
+- [🚀 Deployment](#-deployment)
 
-- [📝 Credits](#credits)
+- [📝 Credits](#-credits)
 
-- [🏅 Honourable Mentions](#honourable-mentions)
+- [🏅 Honourable Mentions](#-honourable-mentions)
 
 </details>
 
@@ -63,7 +66,7 @@ At its heart, ArtifexLab is about collaboration and encouragement. Users can che
 
 ---
 
-## Project Overview
+## 📌 Project Overview
 
 The **ArtifexLab API** is the backend system behind a vibrant creative platform where users can share digital artwork, engage with community tutorials, and interact through likes, comments, and follows.
 
@@ -73,7 +76,7 @@ Designed to integrate seamlessly with the React-based frontend, this API provide
 
 ---
 
-## API Aims
+## 🎯 API Aims
 
 The **ArtifexLab API** was developed to serve as the backend for a creative community platform. Its primary goals are:
 
@@ -90,13 +93,13 @@ The **ArtifexLab API** was developed to serve as the backend for a creative comm
 - To support learning and growth through structured tutorial content
 - To integrate cleanly with the React-based frontend via RESTful endpoints
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
-## User Stories
+## 🧑‍💻 User Stories
 
-These user stories reflect the core functionality supported by the ArtifexLab API.
+These user stories reflect the core functionality supported by the **ArtifexLab API**.
 
 ### As a **Registered User**, I can:
 
@@ -129,13 +132,17 @@ These user stories reflect the core functionality supported by the ArtifexLab AP
 
 These user stories focus specifically on the backend API. Frontend functionality is handled in a separate repository.
 
+[Back to top ⬆️](#-table-of-contents)
+
 ---
 
-###### 📁 The frontend repository that connects with this API can be found here:
+###### 📁 Frontend Repository
 
-🔗 [ArtifexLab Frontend](https://github.com/SamAtkinsonModeste/artifexlab)
+The **Frontend Repository** that connects with this API can be found here:👇
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+<div align="right"><a href="https://github.com/SamAtkinsonModeste/artifexlab">🔗 ArtifexLab Frontend Repository</a></div>
+
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -150,9 +157,11 @@ These user stories focus specifically on the backend API. Frontend functionality
 - **Heroku** — Platform for API deployment
 - **CORS Headers** — Enables frontend-backend communication
 
+[Back to top ⬆️](#-table-of-contents)
+
 ---
 
-### 🗂️ Database Schema
+### 🧬 Database Schema
 
 The **ArtifexLab API** is powered by a relational PostgreSQL database. The schema was designed using Luna Modeler, allowing for clear relationships between users, creative content, social interactions, and educational features.
 
@@ -190,7 +199,7 @@ Schema diagram created with Luna Modeler and exported from the final database st
 
 This schema supports full CRUD functionality, detailed user interaction, and a mentorship workflow that encourages collaboration and growth in the ArtifexLab community.
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -218,13 +227,13 @@ Features were categorised using the MoSCoW method:
 
 - ![Won't Have](https://img.shields.io/badge/Won%27t%20Have-out%20of%20scope-grey?style=flat-squarefor-the-badge&labelColor=lightgrey) – User account/password update via frontend (excluded for scope)
 
-#### 📋 User Stories
+#### 🧑‍💻 User Stories
 
 User stories were divided into backend-specific and frontend-focused tasks. Backend stories were added as GitHub issues and linked to milestones.
 
 A full breakdown of epics and MoSCoW priorities is available in the AGILE.md file. [Coming soon – placeholder]
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -241,6 +250,8 @@ This API supports a full range of features to foster creativity, learning, and u
 This ensures that the frontend can render rich, interactive features without needing extra queries or logic.
 
 Below is an overview of key features (each accompanied by a screenshot from the frontend):
+
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -270,7 +281,7 @@ These enrich the frontend UI without extra API calls, keeping the interface resp
 Demonstrates **is_owner**, content counts, social metrics, and editable fields for the authenticated user.
 ![Profile Detail View](docs/images/1-profile-detail.png)
 
- <p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -299,7 +310,7 @@ artwork_liked_id, artwork_comments_count, artwork_likes_count
 
 ![Artwork List View](docs/images/2-artworks-list.png)
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -324,7 +335,7 @@ artwork, comment_text,created_at, updated_at
 
 ![Artwork Comments List View](docs/images/7-artworks-comments.png)
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -352,7 +363,7 @@ This view presents all published tutorials, allowing users to explore creative g
 
 ![Tutorials List View](docs/images/3-tutorials-list.png)
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -377,7 +388,7 @@ Each tutorial contains multiple steps, viewable via the tutorial step detail end
 
 ![Tutorial Step Detail View](docs/images/4-tutorial-steps.png)
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -405,7 +416,7 @@ updated_at, attempt_text, attempt_image tutorial_attempt_liked_id,
 
 ![Tutorial Attempt List](docs/images/5-tutorial-attempt-list.png)
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -430,7 +441,7 @@ is_owner, profile_id, profile_image, tutorial_attempt_id
 
 ![Tutorial Feedback Detail View](docs/images/6-tutorial-feedback-details.png)
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
@@ -456,12 +467,16 @@ id, owner, followed, followed_name, followed_profile_image, created_at
 
 ![Followers List View](docs/images/8-followers-list-paganation.png)
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+[Back to top ⬆️](#-table-of-contents)
 
 ---
 
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
-<p align="right">(<a href="#📚-table-of-contents">Back to top ⬆️</a>)</p>
+##🚀 Deployment
+Deployment for this Django REST API was handled via Heroku, with PostgreSQL as the production database and Cloudinary for media storage.
+[DEPLOYMENT.md](/DEPLOYMENT.md)
+
+[Back to top ⬆️](#-table-of-contents)
+<[Back to top ⬆️](#-table-of-contents)
 [Creating a Base Serilizer](https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer?newreg=adb169505ce64135a559eed23d578f26)
 [Creating Custom Generic Views](https://www.django-rest-framework.org/api-guide/generic-views/#creating-custom-base-classes)
 [How to create Abstract Model Class in Django?](https://www.geeksforgeeks.org/how-to-create-abstract-model-class-in-django/)
