@@ -34,6 +34,8 @@ At its heart, ArtifexLab is about collaboration and encouragement. Users can che
 
 - [✨ Features](#-features)
 
+- [🔍 API Filtering, Searching, and Ordering](#-api-filtering-searching-and-ordering)
+
 - [🔐 Authentication & Permissions](#-authentication--permissions)
 
 - [📚 Helpful Resources](#-helpful-resources)
@@ -249,7 +251,12 @@ This API supports a full range of features to foster creativity, learning, and u
 
 This ensures that the frontend can render rich, interactive features without needing extra queries or logic.
 
-Below is an overview of key features (each accompanied by a screenshot from the frontend):
+### API Navigation
+
+**Navigation is straightforward:** you can access API data by attaching an endpoint to the base URL **http://127.0.0.1:8000/**. For example, **http://127.0.0.1:8000/tutorials/** lists all tutorials.<br> The Django admin panel also offers a helpful overview of all available pages via these registered URL routes.
+![Admin Page](docs/images/10-admin.png)
+
+**Below is an overview of key features (each accompanied by a screenshot from the frontend):**
 
 [Back to top ⬆️](#-table-of-contents)
 
@@ -471,12 +478,72 @@ id, owner, followed, followed_name, followed_profile_image, created_at
 
 ---
 
-##🚀 Deployment
+## 🔍 API Filtering, Searching, and Ordering
+
+The ArtifexLab API supports **filtering**, **searching**, and **ordering** on selected endpoints using Django REST Framework’s built-in query parameters.
+
+These features make it possible to:
+
+- View artwork by users you follow
+- Display content based on popularity
+- Support search functionality for discoverability
+
+[Back to top ⬆️](#-table-of-contents)
+
+---
+
+### 🎨 Artwork List Filters
+
+The `/artworks/` endpoint includes the following filters:
+
+| Filter                            | Description                                                                    |
+| --------------------------------- | ------------------------------------------------------------------------------ |
+| `owner__followed__owner__profile` | Returns artworks created by users the current user is following (used in feed) |
+| `likes__owner__profile`           | Returns artworks liked by a specific user profile                              |
+| `owner__profile`                  | Returns artworks created by a specific user profile                            |
+
+**Example usage:**
+
+```
+/artworks/?owner__followed__owner__profile=2
+/artworks/?likes__owner__profile=5
+```
+
+[Back to top ⬆️](#-table-of-contents)
+
+---
+
+### 🔎 Search and Ordering
+
+The `search` parameter allows users to search by title or description (where applicable), and results can be sorted using `ordering` query parameters.
+
+Common ordering fields include:
+
+- `created_at`
+- `artwork_likes_count`
+- `artwork_comments_count`
+
+**Example usage:**
+
+```
+/artworks/?search=landscape&ordering=-artwork_likes_count
+```
+
+---
+
+📘 **Tutorial endpoints** also support similar filters, search, and ordering options — including filtering by followed users, favourited tutorials, and sorting by engagement metrics like likes or comments.
+
+[Back to top ⬆️](#-table-of-contents)
+
+---
+
+## 🚀 Deployment
+
 Deployment for this Django REST API was handled via Heroku, with PostgreSQL as the production database and Cloudinary for media storage.
 [DEPLOYMENT.md](/DEPLOYMENT.md)
 
 [Back to top ⬆️](#-table-of-contents)
-<[Back to top ⬆️](#-table-of-contents)
+[Back to top ⬆️](#-table-of-contents)
 [Creating a Base Serilizer](https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer?newreg=adb169505ce64135a559eed23d578f26)
 [Creating Custom Generic Views](https://www.django-rest-framework.org/api-guide/generic-views/#creating-custom-base-classes)
 [How to create Abstract Model Class in Django?](https://www.geeksforgeeks.org/how-to-create-abstract-model-class-in-django/)
