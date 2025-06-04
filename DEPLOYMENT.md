@@ -2,6 +2,8 @@
 
 This file documents how the **ArtifexLab API** was deployed, covering all tools, environment variables, and setup steps. The goal is to allow others to replicate (or troubleshoot!) the deployment process.
 
+🔙 [Back to README](./README.md)
+
 ---
 
 ## 🔧 Core Technologies & Tools Used
@@ -124,8 +126,6 @@ This way, your keys stay safe and out of version control.
 
 👉 Add env.py to your `.gitignore` file so it never gets pushed to GitHub
 This keeps your private data private 🔐
-
----
 
 ---
 
