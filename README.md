@@ -586,5 +586,30 @@ These approaches helped me avoid unnecessary duplication while keeping the codeb
 
 ## 🔮 Future Enhancements
 
+While the current version of the ArtifexLab API delivers all the core functionality needed to power the platform, there are several features that could be valuable additions in future development phases:
+
+#### ✨ Planned Ideas for Expansion
+
+- **Dropdown Filters on Feed Page**
+  Allow users to toggle between different views like My Feed, Favourites, or Most Popular for a more tailored experience.
+
+- **Video Uploads for Tutorials**
+  Support video content to enhance the educational aspect of tutorials beyond images and text.
+
+- **Downloadable Tutorial PDFs**
+  Give users the option to download PDF versions of tutorials for offline use or long-form study.
+
+#### 🚫 Won’t Haves (for MVP)
+
+**To stay focused and on schedule, the following features were excluded from the initial scope:**
+
+- **Reset Forgotten Password** – Excluded due to implementation complexity and time constraints
+
+- **Messaging or Real-Time Chat** – Planned as a potential social enhancement for future versions
+
+- **Notifications for Activity** – Such as likes, comments, or new followers — not essential for MVP but valuable later
+
+> 💡 These Won’t Haves are still included in the GitHub Backlog column to demonstrate full MoSCoW planning and keep the roadmap transparent.
+
 [Back to top ⬆️](#-table-of-contents)
 [Back to top ⬆️](#-table-of-contents)
