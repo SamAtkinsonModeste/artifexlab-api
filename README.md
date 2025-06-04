@@ -539,12 +539,48 @@ Common ordering fields include:
 
 ## 🚀 Deployment
 
-Deployment for this Django REST API was handled via Heroku, with PostgreSQL as the production database and Cloudinary for media storage.
-[DEPLOYMENT.md](/DEPLOYMENT.md)
+Deployment for this Django REST API was handled via **Heroku**, with **PostgreSQL** as the production database and **Cloudinary** hosting user-uploaded media.<br>The **Pillow** library is used to support image processing, making it compatible with **Cloudinary** uploads.<br> You can find the full step-by-step deployment process in the dedicated file here 👉 [DEPLOYMENT.md](/DEPLOYMENT.md)
+
+---
+
+## 🔐 Authentication & Permissions
+
+The **ArtifexLab API** uses token-based authentication powered by **dj-rest-auth** and **JWT**, ensuring that users can securely log in, log out, and access protected routes.
+
+#### 🪪 Authentication
+
+Authentication tokens are required for any actions that involve creating, editing, or deleting content. Unauthenticated users can view public data but cannot interact with the platform.
+
+#### 🛡️ Permissions
+
+Permissions are enforced using Django REST Framework’s built-in classes:
+
+`IsAuthenticatedOrReadOnly` - allows full access to logged-in users, while visitors can only view content.
+
+`IsOwnerOrReadOnly` - ensures that only the creator of an object (e.g., a post, comment, or tutorial) can update or delete it.
+
+Attempts to access or modify unauthorized content will return a 401 (Unauthorized) or 403 (Forbidden) response, keeping user data safe and secure.
+
+[Back to top ⬆️](#-table-of-contents)
+
+---
+
+## 📚 Helpful Resources
+
+Throughout development, I made a strong effort to keep my code **DRY** _(Don’t Repeat Yourself)_ and maintainable.<br> To support this, I explored ways to create reusable base classes for **models**, **serializers**, and **views**.
+
+**These resources were especially helpful in guiding me through that process:**
+
+- [Creating a Base Serializer (Stack Overflow)](https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer?newreg=adb169505ce64135a559eed23d578f26) - Helped me understand how to reduce repetition across similar serializers
+- [Creating Custom Generic Views (DRF Docs)](https://www.django-rest-framework.org/api-guide/generic-views/#creating-custom-base-classes) - Useful for building DRY views with shared logic
+- [How to Create Abstract Model Class in Django? (GeeksForGeeks)](https://www.geeksforgeeks.org/how-to-create-abstract-model-class-in-django/)
+  [Django Documentation - Abstract base classes](https://docs.djangoproject.com/en/5.2/topics/db/models/#model-inheritance) - Official guide that solidified my understanding of how to extend models cleanly
+
+These approaches helped me avoid unnecessary duplication while keeping the codebase flexible and easy to maintain.
+
+[Back to top ⬆️](#-table-of-contents)
+
+---
 
 [Back to top ⬆️](#-table-of-contents)
 [Back to top ⬆️](#-table-of-contents)
-[Creating a Base Serilizer](https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer?newreg=adb169505ce64135a559eed23d578f26)
-[Creating Custom Generic Views](https://www.django-rest-framework.org/api-guide/generic-views/#creating-custom-base-classes)
-[How to create Abstract Model Class in Django?](https://www.geeksforgeeks.org/how-to-create-abstract-model-class-in-django/)
-[Docs: Django - Abstract base classes](https://docs.djangoproject.com/en/5.2/topics/db/models/#model-inheritance)
