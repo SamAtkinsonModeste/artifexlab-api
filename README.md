@@ -44,9 +44,7 @@ At its heart, ArtifexLab is about collaboration and encouragement. Users can che
 
 - [🔮 Future Enhancements](#-future-enhancements)
 
-- [🧪 Testing](#-testing)
-
-- [🚀 Deployment](#-deployment)
+- [🧪 Testing ](#-testing)
 
 - [📝 Credits](#-credits)
 
@@ -612,4 +610,29 @@ While the current version of the ArtifexLab API delivers all the core functional
 > 💡 These Won’t Haves are still included in the GitHub Backlog column to demonstrate full MoSCoW planning and keep the roadmap transparent.
 
 [Back to top ⬆️](#-table-of-contents)
+
+---
+
+## 🧪 Testing
+
+Manual testing all the way — there was a lot to cover!
+All 🧪 tests and 🐞 bugs are documented in one handy place 👉 [TEST.md](/TEST.md)
+
+[Back to top ⬆️](#-table-of-contents)
+
+---
+
+## 🏅 Honourable Mentions
+
+This project wouldn’t have been possible without a little help (and a lot of encouragement) from some incredible people:
+
+- **Rory Patrick Sheridan** – My first mentor, who saw me through my first four projects and helped me build the confidence to keep going.
+- **Richard Wells** – My second mentor for this final project. Generous with his time, full of insight, and the steady voice I needed to carry out this mammoth build.
+- **My family** – For all the love and support 💖 and to my amazing kids for understanding why their mum wasn’t always as available as before 💖.
+- **Code Institute** – For the DRF-API walkthrough project, which gave me a solid launchpad while I planned out my own vision.
+- **Stack Overflow** – For being the unofficial co-pilot of coders everywhere.
+- **Django & DRF Docs** – For being genuinely helpful (and impressively readable!).
+- **GitHub Copilot** – For that uncanny autocomplete when I needed a nudge.
+- **ChatGPT** – Ever-present coding assistant, breaking down code lines so I could understand them better, planning partner (and great soundboard!), bug detective, and cheerleader 🥳
+
 [Back to top ⬆️](#-table-of-contents)
