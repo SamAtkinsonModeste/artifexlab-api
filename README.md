@@ -207,33 +207,9 @@ This schema supports full CRUD functionality, detailed user interaction, and a m
 
 ### 🌀 Agile Development
 
-This project was built using an Agile development workflow with User Stories, MoSCoW prioritisation, and issue tracking via GitHub Projects and Trello.
+This project was planned and built using the Agile methodology, which helped keep everything organised, focused, and adaptable throughout development.
 
-The goal was to ensure continuous progress, regular testing, and flexibility for iterative improvements based on core features first.
-
-#### 📌 Project Management Tools
-
-- **GitHub Projects** – Used for issue tracking, sprint planning, and epics
-
-- **Trello** – Used during the planning stage to visualise the structure of GitHub issues, prioritise stories, and experiment with epics and MoSCoW labels before committing to GitHub layout
-
-#### ✅ MoSCoW Prioritisation
-
-Features were categorised using the MoSCoW method:
-
-- ![Must Have](https://img.shields.io/badge/Must%20Have-critical-grey?style=flat-squarefor-the-badge&labelColor=red) – Core API functionality such as user accounts, profile creation, artwork submission, tutorial system
-
-- ![Should Have](https://img.shields.io/badge/Should%20Have-important-grey?style=flat-squarefor-the-badge&labelColor=orange) – Rich tutorial feedback, pagination, staff-restricted routes
-
-- ![Could Have](https://img.shields.io/badge/Could%20Have-optional-grey?style=flat-squarefor-the-badge&labelColor=blue) – Likes/comments on tutorial attempts, user-follow system, optional default profile image
-
-- ![Won't Have](https://img.shields.io/badge/Won%27t%20Have-out%20of%20scope-grey?style=flat-squarefor-the-badge&labelColor=lightgrey) – User account/password update via frontend (excluded for scope)
-
-#### 🧑‍💻 User Stories
-
-User stories were divided into backend-specific and frontend-focused tasks. Backend stories were added as GitHub issues and linked to milestones.
-
-A full breakdown of epics and MoSCoW priorities is available in the AGILE.md file. [Coming soon – placeholder]
+You can find a full breakdown of how I used Agile and what was used — including themes, epics, MoSCoW priorities, and issue tracking — in the dedicated file here 👉 [AGILE.MD](/AGILE.md)
 
 [Back to top ⬆️](#-table-of-contents)
 
