@@ -5,6 +5,10 @@
 **The brains behind the art.** 🧠
 _A Django REST API powering a creative showcase platform._
 
+🌐 [Click here to view the live deployed API](https://artifexlab-api-d4e6d81a8b08.herokuapp.com/)
+
+---
+
 ---
 
 A RESTful backend API built with Django REST Framework to power **ArtifexLab** — a creative hub where digital artists, designers, and creators can showcase their work, grow their skills, and connect with a supportive community.
