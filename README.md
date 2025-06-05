@@ -173,7 +173,7 @@ It follows Django’s relational model structure, with one-to-many and many-to-o
 
 ![Database Schema](docs/images/artifexlab-schema.png)
 
-Schema diagram created with Luna Modeler and exported from the final database structure.
+Schema diagram created with [Luna Modeler](https://www.datensen.com/luna-modeler-for-relational-databases.html) and exported from the final database structure.
 
 ##### 🔑 Key Models Overview
 
