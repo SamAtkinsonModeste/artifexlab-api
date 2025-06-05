@@ -16,38 +16,43 @@ At its heart, ArtifexLab is about collaboration and encouragement. Users can che
 ## 📚 Table of Contents
 
 <details>
-  <summary><strong><span style="font-size: 1.1em;"> 👈  Click the arrow to view table of contents 📖</span></strong></summary>
+  <summary><strong><span style="font-size: 1.1em;">👈 Click the arrow to view table of contents 📖</span></strong></summary>
 
 - [📌 Project Overview](#-project-overview)
-
 - [🎯 API Aims](#-api-aims)
-
 - [🧑‍💻 User Stories](#-user-stories)
-
+  - [Registered User](#as-a-registered-user-i-can)
+  - [Unregistered User](#as-an-unregistered-user-i-can)
+  - [Mentor](#as-a-mentor-i-can)
+  - [Site Admin](#as-a-site-admin-i-can)
 - [📁 Frontend Repository](#-frontend-repository)
-
 - [🔧 Core Technologies Used](#-core-technologies-used)
-
 - [🧬 Database Schema](#-database-schema)
-
+  - [🖼️ Schema Diagram](#️-schema-diagram)
+  - [🔑 Key Models Overview](#-key-models-overview)
 - [🌀 Agile Development](#-agile-development)
-
 - [✨ Features](#-features)
-
+  - [🧑‍🎨 User Profile](#-user-profile)
+  - [🎨 Artwork List View](#-artwork-list-view)
+  - [💬 Artwork Comments List View](#-artwork-comments-list-view)
+  - [📘 Tutorials List View](#-tutorials-list-view)
+  - [🧾 Tutorial Step Detail View](#-tutorial-step-detail-view)
+  - [🧪 Tutorial Attempt List View](#-tutorial-attempt-list-view)
+  - [💬 Tutorial Feedback View](#-tutorial-feedback-view)
+  - [👥 Followers List View](#-followers-list-view)
 - [🔍 API Filtering, Searching, and Ordering](#-api-filtering-searching-and-ordering)
-
+  - [🎨 Artwork List Filters](#-artwork-list-filters)
+  - [🔎 Search and Ordering](#-search-and-ordering)
 - [🚀 Deployment](#-deployment)
-
 - [🔐 Authentication & Permissions](#-authentication--permissions)
-
+  - [🪪 Authentication](#-authentication)
+  - [🛡️ Permissions](#️-permissions)
 - [📚 Helpful Resources](#-helpful-resources)
-
 - [🔮 Future Enhancements](#-future-enhancements)
-
-- [🧪 Testing ](#-testing)
-
+  - [✨ Planned Ideas for Expansion](#-planned-ideas-for-expansion)
+  - [🚫 Won’t Haves (for MVP)](#-wont-haves-for-mvp)
+- [🧪 Testing](#-testing)
 - [📝 Credits](#-credits)
-
 - [🏅 Honourable Mentions](#-honourable-mentions)
 
 </details>
