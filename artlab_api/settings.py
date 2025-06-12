@@ -123,11 +123,18 @@ MIDDLEWARE = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    os.environ.get('CLIENT_ORIGIN')
+   "http://localhost:3000",
+    "https://teaching-explicitly-crab.ngrok-free.app",
+    "https://artifexlabs-21d35e2775bc.herokuapp.com",
 ]
 
 
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.ngrok-free.app",
+    "https://artifexlabs-21d35e2775bc.herokuapp.com",
+]
 
 
 ROOT_URLCONF = 'artlab_api.urls'
