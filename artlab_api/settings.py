@@ -74,7 +74,7 @@ DEBUG = os.environ.get("DEV") == "1"
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "artifexlab-api-d4e6d81a8b08.herokuapp.com"
+    "artifexlab-api-d4e6d81a8b08.herokuapp.com",
 ]
 
 
