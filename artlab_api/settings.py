@@ -68,7 +68,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = True
+DEBUG = os.environ.get("DEV") == "1"
 
 
 ALLOWED_HOSTS = [
@@ -123,7 +123,7 @@ MIDDLEWARE = [
 
 
 CORS_ALLOWED_ORIGINS = [
-   "https://teaching-explicitly-crab.ngrok-free.app"
+    os.environ.get('CLIENT_ORIGIN')
 ]
 
 
