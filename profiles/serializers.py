@@ -5,7 +5,7 @@ from followers.models import Follower
 
 class ProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
-    profile_image = serializers.ReadOnlyField(source="profile.profile_image.url")
+    profile_image = serializers.ImageField(source="profile_image", required=False)
     is_owner = serializers.SerializerMethodField()
     following_id = serializers.SerializerMethodField()
     artworks_count = serializers.ReadOnlyField()
@@ -21,9 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     def get_following_id(self, obj):
         user = self.context["request"].user
         if user.is_authenticated:
-            following = Follower.objects.filter(
-                owner=user, followed=obj.owner
-            ).first()
+            following = Follower.objects.filter(owner=user, followed=obj.owner).first()
             print(following)
             return following.id if following else None
         return None
