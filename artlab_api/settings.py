@@ -221,8 +221,3 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
-
-DEFAULT_PROFILE_IMAGE_URL = os.environ.get(
-    "DEFAULT_PROFILE_IMAGE_URL",
-    "https://res.cloudinary.com/dpnxbddic/image/upload/v1/default_profile_us7dxw_phmfan.jpg",
-)

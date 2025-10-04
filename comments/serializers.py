@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import CommentArtwork, CommentTutorial, CommentTutorialAttempts
@@ -21,25 +20,16 @@ class BaseCommentSerializer(serializers.ModelSerializer):
     The 'content' field is expected to be defined in the subclass's Meta model.
     """
 
-    serializer_version = serializers.CharField(default="comment-v2", read_only=True)
-
     owner = serializers.ReadOnlyField(source="owner.username")
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
-    profile_image = serializers.SerializerMethodField()
+    profile_image = serializers.ImageField(source="owner.profile.profile_image.url")
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context["request"]
         return request.user == obj.owner
-
-    def get_profile_image(self, obj):
-        image = getattr(getattr(obj.owner, "profile", None), "image", None)
-        try:
-            return image.url
-        except Exception:
-            return getattr(settings, "DEFAULT_PROFILE_IMAGE_URL", None)
 
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)

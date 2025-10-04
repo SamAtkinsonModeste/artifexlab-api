@@ -35,7 +35,7 @@ class BaseCommentDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class CommentArtworkList(BaseCommentList):
     serializer_class = CommentArtworkSerializer
-    queryset = CommentArtwork.objects.select_related("owner__profile").all()
+    queryset = CommentArtwork.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["artwork", "owner"]
 
@@ -56,7 +56,7 @@ class CommentTutorialAttemptList(BaseCommentList):
 
 class CommentArtworkDetail(BaseCommentDetail):
     serializer_class = CommentArtworkDetailSerializer
-    queryset = CommentArtwork.objects.select_related("owner__profile").all()
+    queryset = CommentArtwork.objects.all()
 
 
 class CommentTutorialDetail(BaseCommentDetail):
