@@ -5,25 +5,25 @@ from .models import CommentArtwork, CommentTutorial, CommentTutorialAttempts
 
 class BaseCommentSerializer(serializers.ModelSerializer):
     """
-   This serializer provides shared fields and logic for displaying comment instances,
-including owner details, profile image, and human-readable timestamps.
-It is intended to be extended by app-specific comment serializers (e.g., ArtworkCommentSerializer, TutorialCommentSerializer).
+       This serializer provides shared fields and logic for displaying comment instances,
+    including owner details, profile image, and human-readable timestamps.
+    It is intended to be extended by app-specific comment serializers (e.g., ArtworkCommentSerializer, TutorialCommentSerializer).
 
-Fields added:
-- owner: Username of the comment's owner.
-- is_owner: Boolean indicating if the requesting user is the comment owner.
-- profile_id: ID of the owner's profile.
-- profile_image: URL of the owner's profile image.
-- created_at: Human-readable creation time (e.g., '3 minutes ago').
-- updated_at: Human-readable update time.
+    Fields added:
+    - owner: Username of the comment's owner.
+    - is_owner: Boolean indicating if the requesting user is the comment owner.
+    - profile_id: ID of the owner's profile.
+    - profile_image: URL of the owner's profile image.
+    - created_at: Human-readable creation time (e.g., '3 minutes ago').
+    - updated_at: Human-readable update time.
 
-The 'content' field is expected to be defined in the subclass's Meta model.
+    The 'content' field is expected to be defined in the subclass's Meta model.
     """
 
     owner = serializers.ReadOnlyField(source="owner.username")
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
-    profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
+    profile_image = serializers.ImageField(source="owner.profile.image", read_only=True)
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
 
@@ -49,12 +49,14 @@ The 'content' field is expected to be defined in the subclass's Meta model.
             "content",
         ]
 
+
 class CommentArtworkSerializer(BaseCommentSerializer):
     """
     Serializer for creating and listing comments on artworks.
      Inherits shared fields and logic from BaseCommentSerializer and adds the 'artwork' field to associate the comment with a specific artwork.
 
     """
+
     class Meta:
         model = CommentArtwork
         fields = BaseCommentSerializer.Meta.fields + ["artwork"]
@@ -69,14 +71,13 @@ class CommentArtworkDetailSerializer(CommentArtworkSerializer):
     artwork = serializers.ReadOnlyField(source="artwork.id")
 
 
-
-
 class CommentTutorialSerializer(BaseCommentSerializer):
     """
     Serializer for creating and listing comments on tutorials.
     Inherits shared fields and logic from BaseCommentSerializer and adds the 'tutorial' field to associate the comment with a specific tutorial.
 
     """
+
     class Meta:
         model = CommentTutorial
         fields = BaseCommentSerializer.Meta.fields + ["tutorial"]
@@ -90,12 +91,14 @@ class CommentTutorialDetailSerializer(CommentTutorialSerializer):
 
     tutorial = serializers.ReadOnlyField(source="tutorial.id")
 
+
 class CommentTutorialAttemptSerializer(BaseCommentSerializer):
     """
     Serializer for creating and listing comments on tutorials.
     Inherits shared fields and logic from BaseCommentSerializer and adds the 'tutorial_attempts' field to associate the comment with a specific tutorial.
 
     """
+
     class Meta:
         model = CommentTutorialAttempts
         fields = BaseCommentSerializer.Meta.fields + ["tutorial_attempts"]
