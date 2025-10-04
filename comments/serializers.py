@@ -20,16 +20,25 @@ class BaseCommentSerializer(serializers.ModelSerializer):
     The 'content' field is expected to be defined in the subclass's Meta model.
     """
 
+    serializer_version = serializers.CharField(default="comment-v2", read_only=True)
+
     owner = serializers.ReadOnlyField(source="owner.username")
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
-    profile_image = serializers.ImageField(source="owner.profile.image", read_only=True)
+    profile_image = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context["request"]
         return request.user == obj.owner
+
+    def get_profile_image(self, obj):
+        image = getattr(getattr(obj.owner, "profile", None), "image", None)
+        try:
+            return image.url if image else None
+        except Exception:
+            return None
 
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
