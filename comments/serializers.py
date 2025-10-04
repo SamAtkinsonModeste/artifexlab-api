@@ -39,8 +39,7 @@ class BaseCommentSerializer(serializers.ModelSerializer):
         try:
             return image.url
         except Exception:
-            pass
-            return getattr(settings, "DEFUALT_PROFILE_IMAGE_URL", None)
+            return getattr(settings, "DEFAULT_PROFILE_IMAGE_URL", None)
 
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
