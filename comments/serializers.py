@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import CommentArtwork, CommentTutorial, CommentTutorialAttempts
@@ -36,9 +37,10 @@ class BaseCommentSerializer(serializers.ModelSerializer):
     def get_profile_image(self, obj):
         image = getattr(getattr(obj.owner, "profile", None), "image", None)
         try:
-            return image.url if image else None
+            return image.url
         except Exception:
-            return None
+            pass
+            return getattr(settings, "DEFUALT_PROFILE_IMAGE_URL", None)
 
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
